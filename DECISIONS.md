@@ -17,12 +17,21 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - The Vite dev server binds to 127.0.0.1, because with the default `localhost` Node picked IPv6 `::1` only and 127.0.0.1:5173 refused connections.
 
 ## Catalog data
-- An album is a MusicBrainz release group of primary type Album with no secondary types (no live, compilation, EP, or single); its tracklist comes from the earliest official release.
+- An album is a MusicBrainz release group of primary type Album whose secondary types, if any, are only Soundtrack or Mixtape/Street (so no live albums, compilations, remixes, EPs, or singles); its tracklist comes from the earliest official release.
 - A recording (song) belongs to the first album it was imported with.
+- Regional editions are dropped: when at least half the shorter album's tracks are the same recordings as an album already kept for the artist, only the earlier-released one is kept.
 - Albums and tracks have one primary artist; featured artists are not modelled.
 - The ~200 popular artists come from ListenBrainz sitewide stats, committed as JSON so seeds are reproducible.
 - Artist bio and image come from the English Wikipedia summary, found via the artist's Wikidata link, with a "From Wikipedia" attribution.
 - Cover art is hotlinked from the Cover Art Archive, not downloaded.
+- Cover URLs are built from MusicBrainz's per-release cover-art flag, so the seed makes no Cover Art Archive requests; browsers load images on demand.
+- The seed's User-Agent comes from `SEED_USER_AGENT` (not `MUSICBRAINZ_USER_AGENT`), because Wikimedia requires one as well as MusicBrainz.
+- Albums are ranked by MusicBrainz rating votes before the per-artist cap (default 15), so the best-known albums survive it; up to 6 extra candidates are checked to replace editions dropped as duplicates.
+- The seed never deletes catalog rows, because reviews cascade from them; an album imported earlier keeps its tracklist on re-runs.
+- The canonical release is the earliest official one with an audio tracklist; a year-only date counts as the end of that year, and DVD/Blu-ray/VHS media are skipped.
+- If Wikipedia lookups fail after retries, the artist is still saved, without a bio, and listed at the end of the run.
+- Release-group paging stops at 1,000 entries per artist, so artists with huge bootleg catalogues can't stall the run.
+- Seed HTTP requests time out after 20s and retry with backoff from 2s up to 30s: up to 10 attempts for MusicBrainz, whose 503s are frequent and where one failed request discards the artist's other work, and 6 for other services.
 - Search matches names and titles only, using the `simple` text config plus `unaccent`, since names are multilingual proper nouns.
 
 ## Reviews and charts

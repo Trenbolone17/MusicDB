@@ -9,6 +9,9 @@ const EnvSchema = z.object({
   PORT: z.coerce.number().int().positive().default(3000),
   DATABASE_URL: z.string().min(1),
   TEST_DATABASE_URL: z.string().min(1).optional(),
+  // Only the seed scripts use these, so the API starts without them.
+  SEED_USER_AGENT: z.string().min(1).optional(),
+  SEED_MAX_ALBUMS_PER_ARTIST: z.coerce.number().int().positive().default(15),
 });
 
 const parsed = EnvSchema.safeParse(process.env);
@@ -34,4 +37,8 @@ module.exports = {
   isTest,
   port: env.PORT,
   databaseUrl,
+  seed: {
+    userAgent: env.SEED_USER_AGENT,
+    maxAlbumsPerArtist: env.SEED_MAX_ALBUMS_PER_ARTIST,
+  },
 };
