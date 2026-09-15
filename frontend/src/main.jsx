@@ -9,7 +9,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30_000,
-      retry: 1,
+      // Retry once for network and server errors; a 404 or other client error won't change on retry.
+      retry: (failureCount, error) => failureCount < 1 && !(error?.status >= 400 && error?.status < 500),
       refetchOnWindowFocus: false,
     },
   },

@@ -1,3 +1,5 @@
+import EmptyMessage from './EmptyMessage.jsx';
+
 // Treats an empty array, or a paginated { items: [] } response, as empty.
 function defaultIsEmpty(data) {
   if (Array.isArray(data)) return data.length === 0;
@@ -7,12 +9,14 @@ function defaultIsEmpty(data) {
 
 // Renders the loading, error, or empty state for a TanStack Query result, and otherwise
 // calls children(data). Wrap every list in this, so no view is ever a blank screen.
+// Detail pages pass `notFound`, shown instead of the retry message when the API says 404.
 export default function QueryState({
   query,
   children,
   isEmpty = defaultIsEmpty,
   emptyMessage = 'Nothing here yet.',
   loadingMessage = 'Loading…',
+  notFound,
 }) {
   if (query.isPending) {
     return (
@@ -23,6 +27,7 @@ export default function QueryState({
   }
 
   if (query.isError) {
+    if (notFound && query.error?.status === 404) return notFound;
     return (
       <div className="py-6 text-sm" role="alert">
         <p className="text-muted">{query.error?.message || 'Something went wrong.'}</p>
@@ -37,9 +42,7 @@ export default function QueryState({
     );
   }
 
-  if (isEmpty(query.data)) {
-    return <p className="py-6 text-sm text-muted">{emptyMessage}</p>;
-  }
+  if (isEmpty(query.data)) return <EmptyMessage>{emptyMessage}</EmptyMessage>;
 
   return children(query.data);
 }

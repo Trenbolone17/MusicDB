@@ -48,3 +48,13 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - The API error shape adds an optional `details` field, used only for validation errors.
 - Rate limits use express-rate-limit's in-memory store, which is fine for a single process.
 - Avatars are re-encoded to 256px WebP with sharp.
+
+## Catalog API and pages
+- Each detail endpoint returns everything its page needs in one response (artist with top genres, albums, and top tracks; album with its tracklist); reviews will come from a separate, paginated endpoint.
+- A non-numeric, zero, or unknown id returns 404 `NOT_FOUND`, and the page shows a "not found" message instead of a retry button.
+- Until the ranking module lands (Feature 8), an artist's top tracks are its rated tracks ordered by plain average, then rating count.
+- Artist pages show the top 6 genres by MusicBrainz votes.
+- Missing or broken images show a flat "No image" placeholder.
+- The rating star is light grey; green stays reserved for links, active states, and the primary button.
+- The query client retries network and server errors once and never retries 4xx responses.
+- Tab titles read "<name> · Songboard".
