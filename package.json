@@ -1,0 +1,25 @@
+{
+  "name": "songboard",
+  "private": true,
+  "description": "IMDb for music: rate and review songs, albums, and artists",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "npm run db:up && npm run migrate && concurrently --kill-others-on-fail -n api,web -c green,white npm:dev:api npm:dev:web",
+    "dev:api": "npm run dev -w backend",
+    "dev:web": "npm run dev -w frontend",
+    "db:up": "docker compose up -d --wait db",
+    "db:down": "docker compose down",
+    "migrate": "npm run migrate -w backend",
+    "test": "npm run db:up && npm test -w backend",
+    "build": "npm run build -w frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

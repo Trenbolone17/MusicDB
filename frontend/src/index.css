@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* Drop Tailwind's default palette so only the approved colours exist as utilities. */
+  --color-*: initial;
+
+  --color-bg: #0e0e0e;
+  --color-fg: #d4d4d4;
+  --color-muted: #8a8a8a;
+  --color-line: #262626;
+  --color-accent: #22c55e;
+  --color-danger: #b35c5c;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+  }
+}
