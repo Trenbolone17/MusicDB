@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react(), tailwindcss()],
     server: {
+      // Bind to IPv4 loopback explicitly. With the default "localhost", Node can pick the
+      // IPv6 address ::1 only, leaving http://127.0.0.1:5173 unreachable.
+      host: '127.0.0.1',
       port: 5173,
       strictPort: true,
       // The browser only talks to Vite, which forwards API and upload requests to Express.

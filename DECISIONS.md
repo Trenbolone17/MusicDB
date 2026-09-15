@@ -14,6 +14,7 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - Postgres `bigint` values (ids, counts) are parsed as JS numbers and `numeric` as floats; ids will never approach 2^53.
 - Tailwind's default colour palette is removed in `@theme`, so only the approved tokens (bg, fg, muted, line, accent, danger) exist as utilities.
 - Unknown routes return the standard JSON error (`NOT_FOUND`), not Express's HTML page.
+- The Vite dev server binds to 127.0.0.1, because with the default `localhost` Node picked IPv6 `::1` only and 127.0.0.1:5173 refused connections.
 
 ## Catalog data
 - An album is a MusicBrainz release group of primary type Album with no secondary types (no live, compilation, EP, or single); its tracklist comes from the earliest official release.
