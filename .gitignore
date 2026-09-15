@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+frontend/dist/
+
+# Logs and caches
+*.log
+npm-debug.log*
+.cache/
+coverage/
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+
+# Claude Code local settings (keep CLAUDE.md, ignore personal overrides)
+.claude/settings.local.json
+
+# Docker volumes if you mount Postgres data locally
+pgdata/
