@@ -1,14 +1,16 @@
 const { rateLimit } = require('express-rate-limit');
 const { AppError } = require('../errors');
 
-// Allows `max` requests per client IP within `windowMs`, then answers with the standard error
+// Allows `max` requests per client within `windowMs`, then answers with the standard error
 // shape. With skipSuccessfulRequests, only requests that end in an error count toward the
-// limit. Each call creates its own in-memory counter, so every app instance starts fresh.
-function createRateLimiter({ max, windowMs, skipSuccessfulRequests = false }) {
+// limit. keyGenerator switches from per-IP to another key, such as the signed-in user. Each
+// call creates its own in-memory counter, so every app instance starts fresh.
+function createRateLimiter({ max, windowMs, skipSuccessfulRequests = false, keyGenerator }) {
   return rateLimit({
     windowMs,
     limit: max,
     skipSuccessfulRequests,
+    ...(keyGenerator && { keyGenerator }),
     standardHeaders: 'draft-8',
     legacyHeaders: false,
     handler: (req, res, next) => {

@@ -58,6 +58,14 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - Form errors use the muted red, the palette's only warning colour.
 - Avatars are re-encoded to 256px WebP with sharp.
 
+## Ratings and reviews
+- Every review write locks the target row first, so ratings of the same item queue up and the counters can't race; edits and deletions take that same lock before the review row, which rules out deadlocks.
+- Ownership is read from the database inside the write transaction: someone else's review gives 403, a missing one 404.
+- Rating something again replaces the previous rating (PUT to your own review), so there's never a second row to reconcile.
+- An empty review box is stored as NULL, which counts towards the average but isn't listed among written reviews.
+- Review lists are 10 per page, newest first, with the total from a window function rather than a second count query.
+- Review writes are limited per signed-in account (30 per 10 minutes by default) rather than per IP address.
+
 ## Catalog API and pages
 - Each detail endpoint returns everything its page needs in one response (artist with top genres, albums, and top tracks; album with its tracklist); reviews will come from a separate, paginated endpoint.
 - A non-numeric, zero, or unknown id returns 404 `NOT_FOUND`, and the page shows a "not found" message instead of a retry button.

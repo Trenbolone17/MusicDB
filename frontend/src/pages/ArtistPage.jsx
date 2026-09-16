@@ -4,6 +4,8 @@ import Cover from '../components/Cover.jsx';
 import EmptyMessage from '../components/EmptyMessage.jsx';
 import QueryState from '../components/QueryState.jsx';
 import { InlineRating, RatingSummary } from '../components/Rating.jsx';
+import ReviewForm from '../components/ReviewForm.jsx';
+import ReviewsSection from '../components/ReviewsSection.jsx';
 import Section from '../components/Section.jsx';
 import useDocumentTitle from '../lib/useDocumentTitle.js';
 import NotFoundPage from './NotFoundPage.jsx';
@@ -66,6 +68,14 @@ function ArtistDetails({ artist }) {
         ) : (
           <TopTracks tracks={artist.topTracks} />
         )}
+      </Section>
+
+      <Section title="Your rating">
+        <ReviewForm type="artist" id={artist.id} />
+      </Section>
+
+      <Section title="Reviews">
+        <ReviewsSection type="artist" id={artist.id} />
       </Section>
     </article>
   );

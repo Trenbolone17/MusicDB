@@ -4,6 +4,8 @@ import Cover from '../components/Cover.jsx';
 import EmptyMessage from '../components/EmptyMessage.jsx';
 import QueryState from '../components/QueryState.jsx';
 import { InlineRating, RatingSummary } from '../components/Rating.jsx';
+import ReviewForm from '../components/ReviewForm.jsx';
+import ReviewsSection from '../components/ReviewsSection.jsx';
 import Section from '../components/Section.jsx';
 import { formatDuration, formatTotalMinutes, pluralize } from '../lib/format.js';
 import useDocumentTitle from '../lib/useDocumentTitle.js';
@@ -52,6 +54,14 @@ function AlbumDetails({ album }) {
 
       <Section title="Tracklist">
         {album.tracks.length === 0 ? <EmptyMessage>No tracks listed.</EmptyMessage> : <Tracklist tracks={album.tracks} />}
+      </Section>
+
+      <Section title="Your rating">
+        <ReviewForm type="album" id={album.id} />
+      </Section>
+
+      <Section title="Reviews">
+        <ReviewsSection type="album" id={album.id} />
       </Section>
     </article>
   );

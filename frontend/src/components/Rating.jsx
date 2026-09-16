@@ -13,7 +13,7 @@ export function RatingSummary({ average, count }) {
   );
 }
 
-// Compact rating for list rows: "★ 8.4", or a muted dash when there are no ratings.
+// Compact average for list rows: "★ 8.4", or a muted dash when there are no ratings.
 export function InlineRating({ average, count }) {
   if (!count) {
     return (
@@ -26,6 +26,16 @@ export function InlineRating({ average, count }) {
     <span className="inline-flex items-center gap-1 tabular-nums" aria-label={`Rated ${formatRating(average)} out of 10`}>
       <StarIcon className="size-3.5" />
       {formatRating(average)}
+    </span>
+  );
+}
+
+// One person's whole-number rating, as shown on their review.
+export function RatingValue({ rating }) {
+  return (
+    <span className="inline-flex items-center gap-1 text-sm tabular-nums" aria-label={`Rated ${rating} out of 10`}>
+      <StarIcon className="size-3.5" />
+      {rating}
     </span>
   );
 }

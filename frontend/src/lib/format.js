@@ -17,6 +17,11 @@ export function formatRating(average) {
   return average == null ? '–' : average.toFixed(1);
 }
 
+// "2026-09-16T12:00:00Z" -> "16 Sep 2026"
+export function formatDate(iso) {
+  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso));
+}
+
 // (1, 'track') -> "1 track", (1203, 'rating') -> "1,203 ratings"
 export function pluralize(count, singular, plural = `${singular}s`) {
   return `${count.toLocaleString('en')} ${count === 1 ? singular : plural}`;
