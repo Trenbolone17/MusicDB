@@ -13,7 +13,8 @@ const TOP_LISTS = [
 ];
 
 export default function HomePage() {
-  useDocumentTitle('Home');
+  // No page title: the tab just reads "Songboard" on the home page.
+  useDocumentTitle(null);
   const home = useHome();
 
   return (

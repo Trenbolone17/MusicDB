@@ -113,8 +113,8 @@ function AdminTools() {
           emptyMessage={`Nothing matches “${q}”.`}
         >
           {(data) =>
-            GROUPS.filter(([key]) => data[key].items.length > 0).map(([key, title, apiType]) => (
-              <Section key={key} title={title}>
+            GROUPS.filter(([key]) => data[key].items.length > 0).map(([key, title, apiType], index) => (
+              <Section key={key} title={title} divider={index > 0}>
                 <ul className="divide-y divide-line">
                   {data[key].items.map((item) => (
                     <ItemRow key={item.id} typeKey={key} apiType={apiType} item={item} />

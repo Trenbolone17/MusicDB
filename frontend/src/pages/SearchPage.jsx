@@ -83,10 +83,10 @@ function GroupedResults({ q, results }) {
       emptyMessage={`Nothing matches “${q}”.`}
     >
       {(data) =>
-        GROUPS.filter((group) => data[group.type].items.length > 0).map((group) => {
+        GROUPS.filter((group) => data[group.type].items.length > 0).map((group, index) => {
           const { items, total } = data[group.type];
           return (
-            <Section key={group.type} title={group.title}>
+            <Section key={group.type} title={group.title} divider={index > 0}>
               <RankedList rows={toRows(group.type, items)} />
               {total > items.length && (
                 <Link to={`/search?q=${encodeURIComponent(q)}&type=${group.type}`} className="mt-3 inline-block text-sm text-accent hover:underline">
