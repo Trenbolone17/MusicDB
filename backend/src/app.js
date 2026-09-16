@@ -6,6 +6,7 @@ const { createRateLimiter } = require('./middleware/rateLimits');
 const albumRoutes = require('./routes/albums');
 const artistRoutes = require('./routes/artists');
 const { createAuthRouter } = require('./routes/auth');
+const chartRoutes = require('./routes/charts');
 const healthRoutes = require('./routes/health');
 const { createReviewsRouter } = require('./routes/reviews');
 const trackRoutes = require('./routes/tracks');
@@ -37,6 +38,7 @@ function createApp({ authRateLimit = config.rateLimits.auth, reviewRateLimit = c
   app.use('/api', artistRoutes);
   app.use('/api', albumRoutes);
   app.use('/api', trackRoutes);
+  app.use('/api', chartRoutes);
   app.use(
     '/api',
     createReviewsRouter({

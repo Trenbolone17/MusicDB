@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
 import Layout from './components/Layout.jsx';
 import AlbumPage from './pages/AlbumPage.jsx';
 import ArtistPage from './pages/ArtistPage.jsx';
+import ChartPage from './pages/ChartPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
@@ -11,9 +12,6 @@ import TrackPage from './pages/TrackPage.jsx';
 
 // Pages that aren't built yet. Each later feature swaps in the real page.
 const placeholders = [
-  ['top/songs', 'Top Songs'],
-  ['top/albums', 'Top Albums'],
-  ['top/artists', 'Top Artists'],
   ['featured', 'Featured'],
   ['search', 'Search'],
   ['u/:username', 'Profile'],
@@ -24,6 +22,9 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<HomePage />} />
+        <Route path="top/songs" element={<ChartPage type="tracks" />} />
+        <Route path="top/albums" element={<ChartPage type="albums" />} />
+        <Route path="top/artists" element={<ChartPage type="artists" />} />
         <Route path="artists/:id" element={<ArtistPage />} />
         <Route path="albums/:id" element={<AlbumPage />} />
         <Route path="tracks/:id" element={<TrackPage />} />

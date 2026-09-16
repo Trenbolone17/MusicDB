@@ -2,12 +2,12 @@ const express = require('express');
 const { z } = require('zod');
 const { query } = require('../db');
 const { parseIdParam } = require('../middleware/idParam');
+const { parsePage } = require('../pagination');
 const { requireAuth } = require('../middleware/auth');
 const { validateBody } = require('../middleware/validate');
 const reviewService = require('../services/reviews');
 
 const PAGE_SIZE = 10;
-const MAX_PAGE = 1000;
 
 const RatingSchema = z
   .number('Give a rating from 1 to 10')
@@ -31,11 +31,6 @@ const EditReviewSchema = z
   .refine((values) => values.rating !== undefined || values.body !== undefined, {
     message: 'Change the rating or the review text',
   });
-
-const parsePage = (value) => {
-  const page = Number(value ?? 1);
-  return Number.isInteger(page) && page >= 1 && page <= MAX_PAGE ? page : 1;
-};
 
 // Routes for one target type, e.g. /api/albums/:id/reviews. Each type gets its own router so
 // an unknown id reports the right thing ("Album not found").

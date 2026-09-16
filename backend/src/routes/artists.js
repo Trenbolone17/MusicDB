@@ -2,6 +2,7 @@ const express = require('express');
 const { query } = require('../db');
 const { notFound } = require('../errors');
 const { parseIdParam } = require('../middleware/idParam');
+const ranking = require('../ranking');
 const { ratingAverage } = require('../sql');
 
 const router = express.Router();
@@ -30,15 +31,17 @@ const ALBUMS_SQL = `
   WHERE al.artist_id = $1
   ORDER BY al.release_year NULLS LAST, al.title`;
 
-// Until the ranking module arrives, "top" means the highest plain average among rated tracks.
+// The artist's rated tracks, ordered by the same weighted score as the Top Songs chart.
 const TOP_TRACKS_SQL = `
+  WITH ${ranking.globalMeanCte('tracks')}
   SELECT t.id, t.title, t.duration_ms AS "durationMs",
          t.rating_count AS "ratingCount", ${ratingAverage('t')} AS "ratingAverage",
          json_build_object('id', al.id, 'title', al.title) AS album
   FROM tracks t
   JOIN albums al ON al.id = t.album_id
+  CROSS JOIN global
   WHERE al.artist_id = $1 AND t.rating_count > 0
-  ORDER BY t.rating_sum::numeric / t.rating_count DESC, t.rating_count DESC, t.id
+  ORDER BY ${ranking.topScoreSql('t')} DESC, t.rating_count DESC, t.id
   LIMIT $2`;
 
 // Everything the artist page needs in one response: details, genres, discography, top tracks.

@@ -40,6 +40,11 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - Ratings without text count in charts but are not shown in "recent reviews" lists.
 - Charts list only items with at least one rating, 25 per page.
 - Ranking prior weight m = 5; trending uses a 14-day half-life over a 90-day window.
+- No demo users or reviews are seeded, at the owner's request (the plan's Feature 7 was dropped); charts start empty and fill as real people rate.
+- Trending lists only items with at least one rating inside the 90-day window; anything else has no recent signal to rank on.
+- Chart sort and page live in the URL query string (`?sort=trending&page=2`), with defaults left out, so a chart position can be shared.
+- An artist's "top tracks" use the same weighted score as the Top Songs chart, so the two never disagree.
+- Charts get their total from a window count in the same query; a page past the end therefore reports total 0, which the client shows as empty.
 
 ## Auth, API, and uploads
 - Email is required at signup; login accepts username or email.
