@@ -15,13 +15,20 @@ function createMusicBrainz(client) {
       return get(`artist/${mbid}`, { inc: 'genres url-rels' });
     },
 
-    // type=album also matches live albums, compilations, and so on; transform.js filters those.
-    async browseAlbumGroups(artistMbid) {
+    // Lucene search, e.g. searchArtists('artist:"Sushin Shyam"') or 'area:Kerala'.
+    async searchArtists(query, limit = 10, offset = 0) {
+      const data = await get('artist', { query, limit, offset });
+      return { count: data?.count ?? 0, artists: data?.artists ?? [] };
+    },
+
+    // `types` is the MusicBrainz ?type= filter ("album" or "album|ep"); it also matches live
+    // albums, compilations, and so on, which transform.js filters.
+    async browseAlbumGroups(artistMbid, types = 'album') {
       const groups = [];
       for (let page = 0; page < MAX_RELEASE_GROUP_PAGES; page++) {
         const data = await get('release-group', {
           artist: artistMbid,
-          type: 'album',
+          type: types,
           inc: 'ratings',
           limit: PAGE_SIZE,
           offset: page * PAGE_SIZE,
@@ -34,12 +41,12 @@ function createMusicBrainz(client) {
     },
 
     // With inc=recordings MusicBrainz returns fewer releases than requested, but one page
-    // is plenty to choose a canonical release from.
+    // is plenty to choose a canonical release from. artist-credits gives each track's performers.
     async browseOfficialReleases(releaseGroupMbid) {
       const data = await get('release', {
         'release-group': releaseGroupMbid,
         status: 'official',
-        inc: 'media recordings',
+        inc: 'media recordings artist-credits',
         limit: PAGE_SIZE,
       });
       return data?.releases ?? [];

@@ -78,7 +78,7 @@ function TopTracks({ username }) {
             image: item.album.coverUrl,
             imageAlt: `${item.album.title} cover`,
             title: item.title,
-            subtitle: `${item.artist.name} · ${item.album.title} · rated ${item.givenRating}`,
+            subtitle: `${item.credit ?? item.artist.name} · ${item.album.title} · rated ${item.givenRating}`,
             ratingAverage: item.ratingAverage,
             ratingCount: item.ratingCount,
           }))}

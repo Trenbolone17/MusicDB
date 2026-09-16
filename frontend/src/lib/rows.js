@@ -6,7 +6,8 @@ export const ROW_BUILDERS = {
     image: item.album.coverUrl,
     imageAlt: `${item.album.title} cover`,
     title: item.title,
-    subtitle: `${item.artist.name} · ${item.album.title}`,
+    // Film songs are catalogued under the composer; show the singers when they're credited.
+    subtitle: `${item.credit ?? item.artist.name} · ${item.album.title}`,
   }),
   albums: (item) => ({
     href: `/albums/${item.id}`,

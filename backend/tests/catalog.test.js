@@ -76,7 +76,19 @@ describe('GET /api/albums/:id', () => {
       [1, 2, 'Dear Prudence'],
       [2, 1, 'Birthday'],
     ]);
-    expect(res.body.tracks[0]).toMatchObject({ durationMs: 163000, ratingCount: 0, ratingAverage: null });
+    expect(res.body.tracks[0]).toMatchObject({ durationMs: 163000, ratingCount: 0, ratingAverage: null, credit: null });
+  });
+
+  it('includes each track\'s performer credit when it differs from the album artist', async () => {
+    const composer = await createArtist({ name: 'Gopi Sundar' });
+    const album = await createAlbum(composer.id, { title: 'Bangalore Days' });
+    const song = await createTrack(album.id, { title: 'Thumbi Penne', trackNumber: 1, credit: 'Vijay Yesudas' });
+
+    const albumRes = await request(app).get(`/api/albums/${album.id}`);
+    expect(albumRes.body.tracks[0].credit).toBe('Vijay Yesudas');
+
+    const trackRes = await request(app).get(`/api/tracks/${song.id}`);
+    expect(trackRes.body).toMatchObject({ title: 'Thumbi Penne', credit: 'Vijay Yesudas', artist: { name: 'Gopi Sundar' } });
   });
 
   it('returns 404 for a missing album', async () => {

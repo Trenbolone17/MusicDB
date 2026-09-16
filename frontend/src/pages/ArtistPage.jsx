@@ -111,6 +111,7 @@ function TopTracks({ tracks }) {
               {track.title}
             </Link>
             <Link to={`/albums/${track.album.id}`} className="block truncate text-xs text-muted hover:text-accent">
+              {track.credit ? `${track.credit} · ` : ''}
               {track.album.title}
             </Link>
           </div>

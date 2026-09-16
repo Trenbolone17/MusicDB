@@ -18,25 +18,26 @@ function dateSortKey(date) {
   return `${year}-${month}-${day}`;
 }
 
-// Secondary types that still count as a proper album. Soundtracks (A Hard Day's Night,
-// Purple Rain) and mixtapes are core releases for many artists; live albums,
-// compilations, remixes, demos, and interviews are not.
-const ALBUM_SECONDARY_TYPES = new Set(['Soundtrack', 'Mixtape/Street']);
-
-// Album release groups worth importing, best-known first by MusicBrainz rating votes, then
-// oldest first. The seed walks this list until it has enough distinct albums.
-function rankAlbumCandidates(releaseGroups) {
+// Album release groups worth importing under a profile (see profiles.js): the right primary
+// type, no disallowed secondary type. Best-known first by MusicBrainz rating votes, then by
+// date in the profile's direction. The seed walks this list until it has enough distinct albums.
+function rankAlbumCandidates(releaseGroups, profile) {
+  const allowedSecondary = new Set(profile.secondaryTypes);
+  const byDate = (a, b) => {
+    const order = dateSortKey(a['first-release-date']).localeCompare(dateSortKey(b['first-release-date']));
+    // Missing dates always go last, whichever direction the profile sorts in.
+    if (!a['first-release-date'] || !b['first-release-date']) return order;
+    return profile.tieBreak === 'newest' ? -order : order;
+  };
   return releaseGroups
     .filter(
       (group) =>
-        group['primary-type'] === 'Album' &&
-        (group['secondary-types'] ?? []).every((type) => ALBUM_SECONDARY_TYPES.has(type)),
+        profile.primaryTypes.includes(group['primary-type']) &&
+        (group['secondary-types'] ?? []).every((type) => allowedSecondary.has(type)),
     )
     .sort(
       (a, b) =>
-        (b.rating?.['votes-count'] ?? 0) - (a.rating?.['votes-count'] ?? 0) ||
-        dateSortKey(a['first-release-date']).localeCompare(dateSortKey(b['first-release-date'])) ||
-        a.id.localeCompare(b.id),
+        (b.rating?.['votes-count'] ?? 0) - (a.rating?.['votes-count'] ?? 0) || byDate(a, b) || a.id.localeCompare(b.id),
     );
 }
 
@@ -58,6 +59,15 @@ function addDistinctAlbum(kept, album) {
     return kept.map((other, i) => (i === index ? album : other));
   }
   return kept;
+}
+
+// Profile rules that need the chosen release, not just the release group: a title pattern to
+// skip, and an allowed-language list checked against the release's language code when set.
+function albumAllowed(group, release, profile) {
+  if (profile.excludeTitles?.test(group.title)) return false;
+  const language = release['text-representation']?.language;
+  if (profile.languages && language && !profile.languages.includes(language)) return false;
+  return true;
 }
 
 // Media we can build a tracklist from: not video, and with tracks listed.
@@ -82,14 +92,25 @@ function pickCanonicalRelease(releases) {
   return candidates[0] ?? null;
 }
 
+// The performers of one track as MusicBrainz credits them, e.g. "K. J. Yesudas & K. S. Chithra",
+// or null when the credit is just the album's own artist (the normal case for a band's album).
+function trackCredit(track, albumArtistMbid) {
+  const parts = track['artist-credit'] ?? track.recording?.['artist-credit'] ?? [];
+  if (parts.length === 0) return null;
+  if (parts.length === 1 && parts[0].artist?.id === albumArtistMbid) return null;
+  const credit = parts.map((part) => `${part.name}${part.joinphrase ?? ''}`).join('').trim();
+  return credit || null;
+}
+
 // One row per track on the release's audio media. A track is keyed by its recording id.
-function tracksFromRelease(release) {
+function tracksFromRelease(release, albumArtistMbid) {
   return audioMedia(release).flatMap((medium) =>
     medium.tracks
       .filter((track) => track.recording?.id)
       .map((track) => ({
         mbid: track.recording.id,
         title: track.recording.title || track.title,
+        credit: trackCredit(track, albumArtistMbid),
         discNumber: medium.position ?? 1,
         trackNumber: track.position,
         durationMs: positiveOrNull(track.length) ?? positiveOrNull(track.recording.length),
@@ -122,6 +143,8 @@ module.exports = {
   rankAlbumCandidates,
   addDistinctAlbum,
   pickCanonicalRelease,
+  albumAllowed,
+  trackCredit,
   tracksFromRelease,
   coverUrl,
   wikidataId,

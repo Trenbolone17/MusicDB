@@ -16,7 +16,7 @@ const ALBUM_SQL = `
   WHERE al.id = $1`;
 
 const TRACKS_SQL = `
-  SELECT t.id, t.disc_number AS "discNumber", t.track_number AS "trackNumber", t.title,
+  SELECT t.id, t.disc_number AS "discNumber", t.track_number AS "trackNumber", t.title, t.credit,
          t.duration_ms AS "durationMs",
          t.rating_count AS "ratingCount", ${ratingAverage('t')} AS "ratingAverage"
   FROM tracks t

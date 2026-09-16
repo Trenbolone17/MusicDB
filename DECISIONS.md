@@ -34,6 +34,16 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - Seed HTTP requests time out after 20s and retry with backoff from 2s up to 30s: up to 10 attempts for MusicBrainz, whose 503s are frequent and where one failed request discards the artist's other work, and 6 for other services.
 - Search matches names and titles only, using the `simple` text config plus `unaccent`, since names are multilingual proper nouns.
 
+## Malayalam catalog and singer credits
+- The English list is widened to ListenBrainz's top 500 artists (it serves up to 1,000 in one request); the committed list is what the seed reads.
+- Malayalam film music is catalogued on MusicBrainz under the composer, usually as a soundtrack or score and often as an EP, so it gets its own seed profile: albums and EPs, soundtracks allowed, up to 40 per artist, ties broken newest first because ratings are too sparse to rank by.
+- The Malayalam artist list is a curated set of composers and bands (`seed/malayalam-names.json`) resolved to MusicBrainz ids by name, preferring hits located in India, plus Kerala-area artists with at least two albums or EPs. Area alone was too noisy (actors, lyricists) and too narrow (composers filed elsewhere).
+- The Malayalam profile skips background-score albums (titles containing "score"; dozens of instrumental cues each, while the film's songs are on its soundtrack release) and releases MusicBrainz marks as a language other than Malayalam, since these composers also score Tamil and Telugu films; releases with no language set are kept.
+- Singers are not seeded as artists: their MusicBrainz releases are mostly compilations. Instead each track stores its performer credit when it differs from the album artist, shown on pages and included in search at a lower weight than the title, so "Yesudas" finds his songs.
+- Credits are matched by pg_trgm word similarity (`<%`), since a credit lists several performers and whole-string similarity would fall under the threshold; the word-similarity threshold is set to 0.45 on every connection, because the 0.6 default rejects a one-letter typo in a short name. The track search vector is rebuilt, since generated columns can't be altered in place.
+- Re-seeding an already imported album now backfills its tracks' credits without touching the tracklist.
+- `seed:catalog -- --only "Name,Name"` seeds particular artists from a list, for spot checks and re-seeding one artist; `malayalam-names.json` has an `exclude` list for Kerala-area artists that qualify on release count but aren't music acts (a spiritual leader, a film director).
+
 ## Reviews and charts
 - Reviews point at their target through three nullable foreign keys plus a CHECK that exactly one is set, rather than a generic target_id.
 - rating_count and rating_sum are maintained in app code inside the review transaction; the target row is locked first, and a CHECK constraint catches drift.

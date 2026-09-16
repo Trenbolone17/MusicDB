@@ -45,11 +45,18 @@ async function saveArtistCatalog(client, { artist, genres, albums }) {
     );
 
     if (inserted.rowCount === 0) {
-      // Imported before: refresh its details but keep its tracklist, which reviews may point at.
+      // Imported before: refresh its details and its tracks' credits, but keep its tracklist,
+      // which reviews may point at.
       await client.query(
         'UPDATE albums SET title = $2, release_year = $3, cover_url = $4, updated_at = now() WHERE mbid = $1',
         [album.mbid, album.title, album.releaseYear, album.coverUrl],
       );
+      for (const track of album.tracks) {
+        await client.query('UPDATE tracks SET credit = $2 WHERE mbid = $1 AND credit IS DISTINCT FROM $2', [
+          track.mbid,
+          track.credit,
+        ]);
+      }
       continue;
     }
 
@@ -59,10 +66,10 @@ async function saveArtistCatalog(client, { artist, genres, albums }) {
       // No conflict target, so this skips both a recording already stored under another
       // album (unique mbid) and a duplicate disc/track position.
       const result = await client.query(
-        `INSERT INTO tracks (mbid, album_id, title, disc_number, track_number, duration_ms)
-         VALUES ($1, $2, $3, $4, $5, $6)
+        `INSERT INTO tracks (mbid, album_id, title, credit, disc_number, track_number, duration_ms)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)
          ON CONFLICT DO NOTHING`,
-        [track.mbid, albumId, track.title, track.discNumber, track.trackNumber, track.durationMs],
+        [track.mbid, albumId, track.title, track.credit, track.discNumber, track.trackNumber, track.durationMs],
       );
       tracksAdded += result.rowCount;
     }

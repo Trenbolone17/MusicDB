@@ -8,7 +8,7 @@ const router = express.Router();
 parseIdParam(router, 'Track');
 
 const TRACK_SQL = `
-  SELECT t.id, t.mbid, t.title, t.disc_number AS "discNumber", t.track_number AS "trackNumber",
+  SELECT t.id, t.mbid, t.title, t.credit, t.disc_number AS "discNumber", t.track_number AS "trackNumber",
          t.duration_ms AS "durationMs",
          t.rating_count AS "ratingCount", ${ratingAverage('t')} AS "ratingAverage",
          json_build_object('id', al.id, 'title', al.title, 'releaseYear', al.release_year,

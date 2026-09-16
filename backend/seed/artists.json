@@ -798,5 +798,1205 @@
   {
     "mbid": "37b2cb82-ef79-4d46-a184-a549450aa231",
     "name": "21 Savage"
+  },
+  {
+    "mbid": "7e9bd05a-117f-4cce-87bc-e011527a8b18",
+    "name": "Miley Cyrus"
+  },
+  {
+    "mbid": "070d193a-845c-479f-980e-bef15710653e",
+    "name": "Prince"
+  },
+  {
+    "mbid": "1c70a3fc-fa3c-4be1-8b55-c3192db8a884",
+    "name": "Röyksopp"
+  },
+  {
+    "mbid": "596ffa74-3d08-44ef-b113-765d43d12738",
+    "name": "Justin Timberlake"
+  },
+  {
+    "mbid": "4b585938-f271-45e2-b19a-91c634b5e396",
+    "name": "Kate Bush"
+  },
+  {
+    "mbid": "5cbef01b-cc35-4f52-af7b-d0df0c4f61b9",
+    "name": "Sonic Youth"
+  },
+  {
+    "mbid": "b41b38d4-ef3e-4f37-8c75-cfe9af999696",
+    "name": "Cage the Elephant"
+  },
+  {
+    "mbid": "fabb37f8-eb2a-4cc1-a72a-b56935bbb72d",
+    "name": "Three Days Grace"
+  },
+  {
+    "mbid": "01809552-4f87-45b0-afff-2c6f0730a3be",
+    "name": "Elvis Presley"
+  },
+  {
+    "mbid": "61af87f4-16ee-4431-8504-cc06187079fb",
+    "name": "XXXTENTACION"
+  },
+  {
+    "mbid": "31745282-b1ea-4d62-939f-226b14d68e7c",
+    "name": "In Flames"
+  },
+  {
+    "mbid": "f2eef649-a6d5-4114-afba-e50ab26254d2",
+    "name": "Sum 41"
+  },
+  {
+    "mbid": "91a81925-92f9-4fc9-b897-93cf01226282",
+    "name": "The Chainsmokers"
+  },
+  {
+    "mbid": "d02dd67e-f655-4600-bc47-f789f59e7367",
+    "name": "Anderson .Paak"
+  },
+  {
+    "mbid": "5f95440d-7737-4a36-9bcf-c05337f7129b",
+    "name": "Denzel Curry"
+  },
+  {
+    "mbid": "64b94289-9474-4d43-8c93-918ccc1920d1",
+    "name": "Billy Joel"
+  },
+  {
+    "mbid": "9689aa5a-4471-4fb4-9721-07cecda0fa9f",
+    "name": "A Tribe Called Quest"
+  },
+  {
+    "mbid": "beff21d3-88c7-4ee0-8b7a-40b6db22c6d7",
+    "name": "Pendulum"
+  },
+  {
+    "mbid": "c14b4180-dc87-481e-b17a-64e4150f90f6",
+    "name": "Opeth"
+  },
+  {
+    "mbid": "6a93afbb-257f-4166-b389-9f2a1e5c5df8",
+    "name": "CHVRCHES"
+  },
+  {
+    "mbid": "e3e0abcd-7671-4482-a9d8-462f5acc9be5",
+    "name": "Incubus"
+  },
+  {
+    "mbid": "0c502791-4ee9-4c5f-9696-0602b721ff3b",
+    "name": "Electric Light Orchestra"
+  },
+  {
+    "mbid": "c3aeb863-7b26-4388-94e8-5a240f2be21b",
+    "name": "Tom Waits"
+  },
+  {
+    "mbid": "d700b3f5-45af-4d02-95ed-57d301bda93e",
+    "name": "Mogwai"
+  },
+  {
+    "mbid": "4ae36ade-1798-48c4-b06b-cc68b7d3d83f",
+    "name": "Porter Robinson"
+  },
+  {
+    "mbid": "2aaf7396-6ab8-40f3-9776-a41c42c8e26b",
+    "name": "LCD Soundsystem"
+  },
+  {
+    "mbid": "6b335658-22c8-485d-93de-0bc29a1d0349",
+    "name": "Judas Priest"
+  },
+  {
+    "mbid": "bdacc37b-8633-4bf8-9dd5-4662ee651aec",
+    "name": "Slayer"
+  },
+  {
+    "mbid": "7bd66c18-cb33-49aa-9279-140acedbdb49",
+    "name": "Ty Dolla $ign"
+  },
+  {
+    "mbid": "078a9376-3c04-4280-b7d7-b20e158f345d",
+    "name": "A Perfect Circle"
+  },
+  {
+    "mbid": "2bcf2e02-5bc3-4c76-bf76-41126cb11444",
+    "name": "Ghost"
+  },
+  {
+    "mbid": "28503ab7-8bf2-4666-a7bd-2644bfc7cb1d",
+    "name": "Dream Theater"
+  },
+  {
+    "mbid": "5dcdb5eb-cb72-4e6e-9e63-b7bace604965",
+    "name": "Bon Jovi"
+  },
+  {
+    "mbid": "28737730-ec70-4da5-89c5-77ac13c5c34d",
+    "name": "Khalid"
+  },
+  {
+    "mbid": "94b0fb9d-a066-4823-b2ec-af1d324bcfcf",
+    "name": "The Velvet Underground"
+  },
+  {
+    "mbid": "89aa5ecb-59ad-46f5-b3eb-2d424e941f19",
+    "name": "Bad Bunny"
+  },
+  {
+    "mbid": "534ee493-bfac-4575-a44a-0ae41e2c3fe4",
+    "name": "Rush"
+  },
+  {
+    "mbid": "8ca01f46-53ac-4af2-8516-55a909c0905e",
+    "name": "My Bloody Valentine"
+  },
+  {
+    "mbid": "000fc734-b7e1-4a01-92d1-f544261b43f5",
+    "name": "Cocteau Twins"
+  },
+  {
+    "mbid": "b4691384-50c3-4afd-9988-51d3ec5db65d",
+    "name": "Hozier"
+  },
+  {
+    "mbid": "8aa5b65a-5b3c-4029-92bf-47a544356934",
+    "name": "Ozzy Osbourne"
+  },
+  {
+    "mbid": "a16371b9-7d36-497a-a9d4-42b0a0440c5e",
+    "name": "Slowdive"
+  },
+  {
+    "mbid": "20395131-fbde-43ce-b141-b700cfdae99c",
+    "name": "Glass Animals"
+  },
+  {
+    "mbid": "561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+    "name": "Miles Davis"
+  },
+  {
+    "mbid": "a80c5dc5-b12e-4667-9f5a-b568961f3839",
+    "name": "Run the Jewels"
+  },
+  {
+    "mbid": "172e1f1a-504d-4488-b053-6344ba63e6d0",
+    "name": "Nick Cave & the Bad Seeds"
+  },
+  {
+    "mbid": "e0e1a584-dd0a-4bd1-88d1-c4c62895039d",
+    "name": "Foster the People"
+  },
+  {
+    "mbid": "78e854b8-9713-4ff2-9218-6b3784893bff",
+    "name": "Vince Staples"
+  },
+  {
+    "mbid": "c5eb9407-caeb-4303-b383-6929aa94021c",
+    "name": "Papa Roach"
+  },
+  {
+    "mbid": "6f1de078-6684-4792-820d-2ffad64c15ed",
+    "name": "Two Door Cinema Club"
+  },
+  {
+    "mbid": "4e024037-14b7-4aea-99ad-c6ace63b9620",
+    "name": "Madvillain"
+  },
+  {
+    "mbid": "c44e9c22-ef82-4a77-9bcd-af6c958446d6",
+    "name": "Mumford & Sons"
+  },
+  {
+    "mbid": "8c538f11-c141-4588-8ecb-931083524186",
+    "name": "Bloc Party"
+  },
+  {
+    "mbid": "d786f59b-1836-4ddb-8393-ab753edbe984",
+    "name": "Clairo"
+  },
+  {
+    "mbid": "044fd265-79dd-43eb-afc4-8b20becf7e17",
+    "name": "Thundercat"
+  },
+  {
+    "mbid": "59db3d82-86ea-451f-881f-dffc8ec387c9",
+    "name": "Metro Boomin"
+  },
+  {
+    "mbid": "8dc08b1f-e393-4f85-a5dd-300f7693a8b8",
+    "name": "James Blake"
+  },
+  {
+    "mbid": "fab34286-b8e1-4879-bce3-194e1358fbd2",
+    "name": "Kesha"
+  },
+  {
+    "mbid": "e4bc69e2-a064-4f93-ada1-f7f209cc1cc3",
+    "name": "Selena Gomez"
+  },
+  {
+    "mbid": "584c04d2-4acc-491b-8a0a-e63133f4bfc4",
+    "name": "Yeah Yeah Yeahs"
+  },
+  {
+    "mbid": "fc7376fe-1a6f-4414-b4a7-83f50ed59c92",
+    "name": "Flying Lotus"
+  },
+  {
+    "mbid": "8e3fcd7d-bda1-4ca0-b987-b8528d2ee74e",
+    "name": "Genesis"
+  },
+  {
+    "mbid": "d5be5333-4171-427e-8e12-732087c6b78e",
+    "name": "Black Eyed Peas"
+  },
+  {
+    "mbid": "dfe9a7c4-8cf2-47f4-9dcb-d233c2b86ec3",
+    "name": "Amy Winehouse"
+  },
+  {
+    "mbid": "1c5efd53-d6b6-4d63-9d22-a15025cf5f07",
+    "name": "Gojira"
+  },
+  {
+    "mbid": "1f43d76f-8edf-44f6-aaf1-b65f05ad9402",
+    "name": "The Flaming Lips"
+  },
+  {
+    "mbid": "efa2c11a-1a35-4b60-bc1b-66d37de88511",
+    "name": "DJ Shadow"
+  },
+  {
+    "mbid": "f4857fb9-e255-4dc6-bd01-e4ca7cc68544",
+    "name": "Jamiroquai"
+  },
+  {
+    "mbid": "75be165a-ad83-4d12-bd28-f589a15c479f",
+    "name": "Major Lazer"
+  },
+  {
+    "mbid": "8d455809-96b3-4bb6-8829-ea4beb580d35",
+    "name": "Phoenix"
+  },
+  {
+    "mbid": "7eb1ce54-a355-41f9-8d68-e018b096d427",
+    "name": "Harry Styles"
+  },
+  {
+    "mbid": "4449ccf6-c948-4d33-aa97-b6ad98ce4b5b",
+    "name": "Metric"
+  },
+  {
+    "mbid": "f4d5cc07-3bc9-4836-9b15-88a08359bc63",
+    "name": "P!nk"
+  },
+  {
+    "mbid": "a506f761-2c22-4b2f-8a94-bd748c2c8f75",
+    "name": "Neutral Milk Hotel"
+  },
+  {
+    "mbid": "79491354-3d83-40e3-9d8e-7592d58d790a",
+    "name": "Deep Purple"
+  },
+  {
+    "mbid": "97b8d224-5660-419c-8dff-4b3bf0c33983",
+    "name": "The Neighbourhood"
+  },
+  {
+    "mbid": "b665b768-0d83-4363-950c-31ed39317c15",
+    "name": "Van Halen"
+  },
+  {
+    "mbid": "8da127cc-c432-418f-b356-ef36210d82ac",
+    "name": "TWICE"
+  },
+  {
+    "mbid": "0b30341b-b59d-4979-8130-b66c0e475321",
+    "name": "Lil Nas X"
+  },
+  {
+    "mbid": "e795e03d-b5d5-4a5f-834d-162cfb308a2c",
+    "name": "PJ Harvey"
+  },
+  {
+    "mbid": "541f16f5-ad7a-428e-af89-9fa1b16d3c9c",
+    "name": "Pantera"
+  },
+  {
+    "mbid": "fa97dd36-1b82-43d7-a6e4-2adeafd59cef",
+    "name": "Fleet Foxes"
+  },
+  {
+    "mbid": "169c4c28-858e-497b-81a4-8bc15e0026ea",
+    "name": "Porcupine Tree"
+  },
+  {
+    "mbid": "f46bd570-5768-462e-b84c-c7c993bbf47e",
+    "name": "Eagles"
+  },
+  {
+    "mbid": "7c7f9c94-dee8-4903-892b-6cf44652e2de",
+    "name": "Tears for Fears"
+  },
+  {
+    "mbid": "f09d2950-e3c6-47b2-b21c-2bad2cd3f616",
+    "name": "Agust D"
+  },
+  {
+    "mbid": "8b22acd6-20e6-4463-a75c-c14b5cfdb666",
+    "name": "Earl Sweatshirt"
+  },
+  {
+    "mbid": "bc5e2ad6-0a4a-4d90-b911-e9a7e6861727",
+    "name": "Mastodon"
+  },
+  {
+    "mbid": "3ac96b4c-4f42-48c8-b793-84dbf54d7ac6",
+    "name": "BROCKHAMPTON"
+  },
+  {
+    "mbid": "57961a97-3796-4bf7-9f02-a985a8979ae9",
+    "name": "Motörhead"
+  },
+  {
+    "mbid": "9e53f84d-ef44-4c16-9677-5fd4d78cbd7d",
+    "name": "Wilco"
+  },
+  {
+    "mbid": "d6ed7887-a401-47a8-893c-34b967444d26",
+    "name": "Ramones"
+  },
+  {
+    "mbid": "d6d45dda-2377-4faa-947b-e071efa085c0",
+    "name": "100 gecs"
+  },
+  {
+    "mbid": "6c8b9855-ba8b-48f9-ac1d-42167f7f7b18",
+    "name": "The Shins"
+  },
+  {
+    "mbid": "1ee37742-1e3d-4e61-84d2-bc85f4c1459a",
+    "name": "LE SSERAFIM"
+  },
+  {
+    "mbid": "854a1807-025b-42a8-ba8c-2a39717f1d25",
+    "name": "Breaking Benjamin"
+  },
+  {
+    "mbid": "aabb1d9f-be12-45b3-a84d-a1fc3e8181fd",
+    "name": "Tiësto"
+  },
+  {
+    "mbid": "382f1005-e9ab-4684-afd4-0bdae4ee37f2",
+    "name": "2Pac"
+  },
+  {
+    "mbid": "618b6900-0618-4f1e-b835-bccb17f84294",
+    "name": "Eric Clapton"
+  },
+  {
+    "mbid": "56756959-1e78-429c-b897-e1d056cb0225",
+    "name": "Tove Lo"
+  },
+  {
+    "mbid": "bbc5b66b-d037-4f26-aecf-0b129e7f876a",
+    "name": "Jimmy Eat World"
+  },
+  {
+    "mbid": "25f3abd9-63b5-471a-bd25-feb9672dfa11",
+    "name": "ROSALÍA"
+  },
+  {
+    "mbid": "3bcff06f-675a-451f-9075-99e8657047e8",
+    "name": "Four Tet"
+  },
+  {
+    "mbid": "e1f1e33e-2e4c-4d43-b91b-7064068d3283",
+    "name": "KISS"
+  },
+  {
+    "mbid": "7441014f-f8f5-494f-81db-ff166fbc078d",
+    "name": "PinkPantheress"
+  },
+  {
+    "mbid": "0c751690-c784-4a4f-b1e4-c1de27d47581",
+    "name": "Animal Collective"
+  },
+  {
+    "mbid": "9ddce51c-2b75-4b3e-ac8c-1db09e7c89c6",
+    "name": "Burial"
+  },
+  {
+    "mbid": "17b53d9f-5c63-4a09-a593-dde4608e0db9",
+    "name": "The Kinks"
+  },
+  {
+    "mbid": "020bfbb4-05c3-4c86-b372-17825c262094",
+    "name": "Audioslave"
+  },
+  {
+    "mbid": "5a85c140-dcf9-4dd2-b2c8-aff0471549f3",
+    "name": "Sam Smith"
+  },
+  {
+    "mbid": "e5c7b94f-e264-473c-bb0f-37c85d4d5c70",
+    "name": "Belle and Sebastian"
+  },
+  {
+    "mbid": "bc710bcf-8815-42cf-bad2-3f1d12246aeb",
+    "name": "Nickelback"
+  },
+  {
+    "mbid": "56a55378-f155-48de-80a5-d80104221267",
+    "name": "Chappell Roan"
+  },
+  {
+    "mbid": "bf24ca37-25f4-4e34-9aec-460b94364cfc",
+    "name": "Shakira"
+  },
+  {
+    "mbid": "713e751f-3ddb-4b77-b3b1-9e6f2e953ad5",
+    "name": "Logic"
+  },
+  {
+    "mbid": "7f3d82ee-3817-4367-9eec-f33a312247a1",
+    "name": "MARINA"
+  },
+  {
+    "mbid": "134cb0bc-06fa-42f7-8078-b0c858349975",
+    "name": "Jack Harlow"
+  },
+  {
+    "mbid": "afdb7919-059d-43c1-b668-ba1d265e7e42",
+    "name": "Marvin Gaye"
+  },
+  {
+    "mbid": "48646387-1664-4c9a-9139-9bfd091b823c",
+    "name": "BLACKPINK"
+  },
+  {
+    "mbid": "b38225b8-8e5f-42aa-bcdc-7bae5b5bdab3",
+    "name": "King Crimson"
+  },
+  {
+    "mbid": "5b6ebfe0-f72b-4902-bba9-74c8af0f1af0",
+    "name": "The 1975"
+  },
+  {
+    "mbid": "b3977da4-f899-4328-921b-ecc599a5618a",
+    "name": "j‐hope"
+  },
+  {
+    "mbid": "96855c21-b832-4366-ba12-0d2330c36a86",
+    "name": "Phoebe Bridgers"
+  },
+  {
+    "mbid": "56c4b861-0922-4c3a-a9b9-3bfcb00f8274",
+    "name": "Zedd"
+  },
+  {
+    "mbid": "bce6d667-cde8-485e-b078-c0a05adea36d",
+    "name": "ScHoolboy Q"
+  },
+  {
+    "mbid": "285e1285-aecc-478f-a8da-0c8cf69e1217",
+    "name": "Miguel"
+  },
+  {
+    "mbid": "5334edc0-5faf-4ca5-b1df-000de3e1f752",
+    "name": "St. Vincent"
+  },
+  {
+    "mbid": "2fddb92d-24b2-46a5-bf28-3aed46f4684c",
+    "name": "Kylie Minogue"
+  },
+  {
+    "mbid": "301b45a4-b8b9-410e-8344-4b4eaf96691a",
+    "name": "Marshmello"
+  },
+  {
+    "mbid": "130d679a-9a92-4373-8348-0800b6b93a30",
+    "name": "初音ミク"
+  },
+  {
+    "mbid": "a6623d39-2d8e-4f70-8242-0a9553b91e50",
+    "name": "The Avalanches"
+  },
+  {
+    "mbid": "401c3991-b76b-499d-8082-9f2df958ef78",
+    "name": "Phil Collins"
+  },
+  {
+    "mbid": "14ecd19f-7121-4192-8549-e5056241a42f",
+    "name": "Pusha T"
+  },
+  {
+    "mbid": "6a65d878-fcd0-42cf-aff9-ca1d636a8bcc",
+    "name": "Foals"
+  },
+  {
+    "mbid": "39a31de6-763d-48b6-a45c-f7cfad58ffd8",
+    "name": "Sabaton"
+  },
+  {
+    "mbid": "b15ebd71-a252-417d-9e1c-3e6863da68f8",
+    "name": "Faith No More"
+  },
+  {
+    "mbid": "23c8056b-ee13-4cfc-a772-2f5292e35bb5",
+    "name": "Jung Kook"
+  },
+  {
+    "mbid": "35fd8d42-b4a6-4414-9827-8766bd0daa3c",
+    "name": "Flume"
+  },
+  {
+    "mbid": "d5d97b2b-b83b-4976-814a-056d9076c8c3",
+    "name": "The Notorious B.I.G."
+  },
+  {
+    "mbid": "144ef525-85e9-40c3-8335-02c32d0861f3",
+    "name": "John Mayer"
+  },
+  {
+    "mbid": "ee27b2d8-648c-4a9d-a68c-e55066959975",
+    "name": "Megan Thee Stallion"
+  },
+  {
+    "mbid": "7808accb-6395-4b25-858c-678bbb73896b",
+    "name": "Bastille"
+  },
+  {
+    "mbid": "65314b12-0e08-43fa-ba33-baaa7b874c15",
+    "name": "Leonard Cohen"
+  },
+  {
+    "mbid": "99ea432a-e3d8-42cb-9d5e-db316a6a8458",
+    "name": "Nick Drake"
+  },
+  {
+    "mbid": "985c709c-7771-4de3-9024-7bda29ebe3f9",
+    "name": "Norah Jones"
+  },
+  {
+    "mbid": "7cf0ea9d-86b9-4dad-ba9e-2355a64899ea",
+    "name": "M.I.A."
+  },
+  {
+    "mbid": "4ad8190b-d2fd-46f8-a3d9-c0f55c034976",
+    "name": "Poppy"
+  },
+  {
+    "mbid": "1e4e9db7-5068-4a9c-bdd0-5777e47172c8",
+    "name": "FKA twigs"
+  },
+  {
+    "mbid": "f5dfa020-ad69-41cd-b3d4-fd7af0414e94",
+    "name": "Wiz Khalifa"
+  },
+  {
+    "mbid": "a9ee533f-8871-4f62-a6bb-91eb264abc90",
+    "name": "Fiona Apple"
+  },
+  {
+    "mbid": "c3cceeed-3332-4cf0-8c4c-bbde425147b6",
+    "name": "Scorpions"
+  },
+  {
+    "mbid": "149e6720-4e4a-41a4-afca-6d29083fc091",
+    "name": "Bad Religion"
+  },
+  {
+    "mbid": "d8354b38-e942-4c89-ba93-29323432abc3",
+    "name": "Thirty Seconds to Mars"
+  },
+  {
+    "mbid": "1595addf-f76b-450a-a097-af852ff35f27",
+    "name": "Nujabes"
+  },
+  {
+    "mbid": "faf4cefb-036c-4c88-b93a-5b03dd0a0e6b",
+    "name": "Demi Lovato"
+  },
+  {
+    "mbid": "ba550d0e-adac-4864-b88b-407cab5e76af",
+    "name": "Paul McCartney"
+  },
+  {
+    "mbid": "c1d4f2ba-cf39-460c-9528-6b827d3417a1",
+    "name": "Yes"
+  },
+  {
+    "mbid": "1a1cd7f3-e5df-4eca-bae2-2757c9e656b5",
+    "name": "Duran Duran"
+  },
+  {
+    "mbid": "fa7b9055-3703-473a-8a09-adf2fe031a24",
+    "name": "CAKE"
+  },
+  {
+    "mbid": "68c261d5-48c8-4ea9-9466-9fc908dc79bb",
+    "name": "Magdalena Bay"
+  },
+  {
+    "mbid": "27e2997f-f7a1-4353-bcc4-57b9274fa9a4",
+    "name": "BABYMETAL"
+  },
+  {
+    "mbid": "ff6e677f-91dd-4986-a174-8db0474b1799",
+    "name": "Jack Johnson"
+  },
+  {
+    "mbid": "484a4e90-6899-4e4b-a948-a2255d365340",
+    "name": "AURORA"
+  },
+  {
+    "mbid": "e01c3376-15fa-40d7-b747-5f219bdefdd7",
+    "name": "Steely Dan"
+  },
+  {
+    "mbid": "509f20b2-5df3-4aec-9bbc-002131fb3f99",
+    "name": "Max Richter"
+  },
+  {
+    "mbid": "eace2373-31c8-4aba-9a5c-7bce22dd140a",
+    "name": "Within Temptation"
+  },
+  {
+    "mbid": "f9ef7a22-4262-4596-a2a8-1d19345b8e50",
+    "name": "Garbage"
+  },
+  {
+    "mbid": "b0e4bc50-3062-4d31-afad-def6a6b7a8e9",
+    "name": "Alan Walker"
+  },
+  {
+    "mbid": "0fabbc1d-8d94-4a61-bd1d-1099ad1e4559",
+    "name": "Car Seat Headrest"
+  },
+  {
+    "mbid": "373a4c98-a46b-48e4-86ec-f6ca65b4f438",
+    "name": "Chance the Rapper"
+  },
+  {
+    "mbid": "c234fa42-e6a6-443e-937e-2f4b073538a3",
+    "name": "Chris Brown"
+  },
+  {
+    "mbid": "58f1e354-ecbc-4fd3-aa25-97eb1d9bd8b9",
+    "name": "RM"
+  },
+  {
+    "mbid": "f467181e-d5e0-4285-b47e-e853dcc89ee7",
+    "name": "Ratatat"
+  },
+  {
+    "mbid": "b29020d6-5dbf-4c99-b16f-c009f8a712ff",
+    "name": "Steve Lacy"
+  },
+  {
+    "mbid": "aab5c954-cabe-432e-899e-1c4f99757327",
+    "name": "Toto"
+  },
+  {
+    "mbid": "e20747e7-55a4-452e-8766-7b985585082d",
+    "name": "Frank Zappa"
+  },
+  {
+    "mbid": "d530dbf9-69b1-404f-98f2-0431104f5a1e",
+    "name": "Bullet for My Valentine"
+  },
+  {
+    "mbid": "3599a39e-4e10-4cb5-90d4-c8a015ebc73b",
+    "name": "Portugal. The Man"
+  },
+  {
+    "mbid": "ae65c507-d9a0-4d42-9a6c-2b1f82158b9f",
+    "name": "Disclosure"
+  },
+  {
+    "mbid": "09720eec-3871-49d5-932d-eb7542768cd3",
+    "name": "Jin"
+  },
+  {
+    "mbid": "5700dcd4-c139-4f31-aa3e-6382b9af9032",
+    "name": "Kraftwerk"
+  },
+  {
+    "mbid": "eab76c9f-ff91-4431-b6dd-3b976c598020",
+    "name": "Infected Mushroom"
+  },
+  {
+    "mbid": "d616b606-cf6a-4b6e-ab0f-e253b8db6610",
+    "name": "JID"
+  },
+  {
+    "mbid": "cbef45a9-7acb-4325-94c9-70081ac8d1b8",
+    "name": "Tycho"
+  },
+  {
+    "mbid": "36bfa85f-737b-41db-a8fc-b8825850ffc3",
+    "name": "Pavement"
+  },
+  {
+    "mbid": "8c32bb01-58a3-453b-8050-8c0620edb0e5",
+    "name": "Stone Temple Pilots"
+  },
+  {
+    "mbid": "7e8571b1-7c5a-4739-bc51-73d422ee9d74",
+    "name": "Five Finger Death Punch"
+  },
+  {
+    "mbid": "83096042-3785-481e-8843-dee69f1aad12",
+    "name": "V"
+  },
+  {
+    "mbid": "4d2956d1-a3f7-44bb-9a41-67563e1a0c94",
+    "name": "Blondie"
+  },
+  {
+    "mbid": "9e103f85-7af7-41d7-b83b-49ba8f0c5abf",
+    "name": "Of Monsters and Men"
+  },
+  {
+    "mbid": "8e68819d-71be-4e7d-b41d-f1df81b01d3f",
+    "name": "50 Cent"
+  },
+  {
+    "mbid": "cd689e77-dfdd-4f81-b50c-5e5a3f5e38a4",
+    "name": "Bladee"
+  },
+  {
+    "mbid": "31445b1e-96f3-4c7f-84ec-dd02e647e690",
+    "name": "DJ Snake"
+  },
+  {
+    "mbid": "494e8d09-f85b-4543-892f-a5096aed1cd4",
+    "name": "Mariah Carey"
+  },
+  {
+    "mbid": "34c63966-445c-4613-afe1-4f0e1e53ae9a",
+    "name": "Fatboy Slim"
+  },
+  {
+    "mbid": "92da4329-77a4-425c-8e92-4280110cace9",
+    "name": "Lil Peep"
+  },
+  {
+    "mbid": "a66999a7-ae5c-460e-ba94-1a01143ae847",
+    "name": "Snow Patrol"
+  },
+  {
+    "mbid": "6e0c7c0e-cba5-4c2c-a652-38f71ef5785d",
+    "name": "Lily Allen"
+  },
+  {
+    "mbid": "a0723a3c-4135-438e-85c5-012712144ede",
+    "name": "Don Toliver"
+  },
+  {
+    "mbid": "fd429857-5ace-4609-ae54-1502c3bdac11",
+    "name": "Billy Talent"
+  },
+  {
+    "mbid": "148ddea2-6839-4354-8e2c-5dfadf136b7f",
+    "name": "Tenacious D"
+  },
+  {
+    "mbid": "27638856-79a1-4495-b7da-1912899560c7",
+    "name": "bbno$"
+  },
+  {
+    "mbid": "be540c02-7898-4b79-9acc-c8122c7d9e83",
+    "name": "Pet Shop Boys"
+  },
+  {
+    "mbid": "134e6410-6954-45d1-bd4a-0f2d2ad5471d",
+    "name": "Zara Larsson"
+  },
+  {
+    "mbid": "d2ff6b6b-fc30-48dc-8952-06f9d8fc64f8",
+    "name": "Supertramp"
+  },
+  {
+    "mbid": "8e66ea2b-b57b-47d9-8df0-df4630aeb8e5",
+    "name": "Peter Gabriel"
+  },
+  {
+    "mbid": "01b8b5bf-06cb-45da-85fb-61ada72fcd69",
+    "name": "Camila Cabello"
+  },
+  {
+    "mbid": "ef326b3d-61f0-4379-aca0-21237d696d63",
+    "name": "$uicideboy$"
+  },
+  {
+    "mbid": "ee190f6b-7d98-43ec-b924-da5f8018eca0",
+    "name": "Janelle Monáe"
+  },
+  {
+    "mbid": "0febdcf7-4e1f-4661-9493-b40427de2c13",
+    "name": "Wu‐Tang Clan"
+  },
+  {
+    "mbid": "e5712ceb-c37a-4c49-a11c-ccf4e21852d4",
+    "name": "Troye Sivan"
+  },
+  {
+    "mbid": "fbb375f9-48bb-4635-824e-4120273b3ba7",
+    "name": "Regina Spektor"
+  },
+  {
+    "mbid": "13bcb2bb-db37-4397-baf5-e0f085be2d64",
+    "name": "Rick Ross"
+  },
+  {
+    "mbid": "84eac621-1c5a-49a1-9500-555099c6e184",
+    "name": "Spoon"
+  },
+  {
+    "mbid": "25ab7547-a4d2-480b-b028-c7f3497bc858",
+    "name": "Men I Trust"
+  },
+  {
+    "mbid": "942a9807-9c1a-4a0e-a285-1fde2c5be9d1",
+    "name": "Big Sean"
+  },
+  {
+    "mbid": "a668565b-41b8-44a8-9d5c-8e609dbf69fc",
+    "name": "Lil Yachty"
+  },
+  {
+    "mbid": "ba0e7638-0cd6-4ff4-8987-c3e224d22c23",
+    "name": "Kygo"
+  },
+  {
+    "mbid": "dff0d392-4cd5-4052-9fbb-f485df3891e5",
+    "name": "2 Chainz"
+  },
+  {
+    "mbid": "69b39eab-6577-46a4-a9f5-817839092033",
+    "name": "Kasabian"
+  },
+  {
+    "mbid": "c544ed4d-2390-4442-a83e-1ea2883b09c8",
+    "name": "Lynyrd Skynyrd"
+  },
+  {
+    "mbid": "3285dc48-9505-469d-ad8a-bdf2d3dba632",
+    "name": "Swans"
+  },
+  {
+    "mbid": "a8ebde98-7e91-46c7-992c-90039ba42017",
+    "name": "De La Soul"
+  },
+  {
+    "mbid": "d2582c77-6b0f-4b2f-802f-8f3cad1a5fec",
+    "name": "Jimin"
+  },
+  {
+    "mbid": "c3f28da8-662d-4f09-bdc7-3084bf685930",
+    "name": "Iron & Wine"
+  },
+  {
+    "mbid": "db008806-16f6-48fc-8521-3d953709689d",
+    "name": "A Day to Remember"
+  },
+  {
+    "mbid": "b7d92248-97e3-4450-8057-6fe06738f735",
+    "name": "Shawn Mendes"
+  },
+  {
+    "mbid": "aea4c9b9-9f8d-49dc-b2ca-57d6f26e8634",
+    "name": "Khruangbin"
+  },
+  {
+    "mbid": "d262ea27-3ffe-40f7-b922-85c42d625e67",
+    "name": "Pitbull"
+  },
+  {
+    "mbid": "14387b0f-765c-4852-852f-135335790466",
+    "name": "EELS"
+  },
+  {
+    "mbid": "d8f43dc5-4613-48ac-8c23-a62b82f8c67a",
+    "name": "Caroline Polachek"
+  },
+  {
+    "mbid": "7944ed53-2a58-4035-9b93-140a71e41c34",
+    "name": "Sting"
+  },
+  {
+    "mbid": "34557d8f-ee4a-44ab-ae6e-49bb8ac604d0",
+    "name": "Cigarettes After Sex"
+  },
+  {
+    "mbid": "72eabb1a-4d2c-4de6-90f2-671b2cada42b",
+    "name": "Caravan Palace"
+  },
+  {
+    "mbid": "4236acde-2ce2-441c-a3d4-38d55f1b5474",
+    "name": "Explosions in the Sky"
+  },
+  {
+    "mbid": "abd506e1-6f2b-4d6f-b937-92c267f6f88b",
+    "name": "Journey"
+  },
+  {
+    "mbid": "21645c31-fe1c-45a4-955c-3e172b12c3f9",
+    "name": "Freddie Gibbs"
+  },
+  {
+    "mbid": "4967c0a1-b9f3-465e-8440-4598fd9fc33c",
+    "name": "Enya"
+  },
+  {
+    "mbid": "4bdcee62-4902-4773-8cd1-e252e2e31225",
+    "name": "Alanis Morissette"
+  },
+  {
+    "mbid": "1d93c839-22e7-4f76-ad84-d27039efc048",
+    "name": "Sepultura"
+  },
+  {
+    "mbid": "410c9baf-5469-44f6-9852-826524b80c61",
+    "name": "Autechre"
+  },
+  {
+    "mbid": "477b8c0c-c5fc-4ad2-b5b2-191f0bf2a9df",
+    "name": "Armin van Buuren"
+  },
+  {
+    "mbid": "3cdb40fe-a63e-4bb9-b40d-17cda5f50979",
+    "name": "Little Simz"
+  },
+  {
+    "mbid": "20883363-1ea4-4d72-ad72-c0e767038f3e",
+    "name": "The Mars Volta"
+  },
+  {
+    "mbid": "53b106e7-0cc6-42cc-ac95-ed8d30a3a98e",
+    "name": "John Williams"
+  },
+  {
+    "mbid": "a505bb48-ad65-4af4-ae47-29149715bff9",
+    "name": "Thievery Corporation"
+  },
+  {
+    "mbid": "95f5b748-d370-47fe-85bd-0af2dc450bc0",
+    "name": "Sublime"
+  },
+  {
+    "mbid": "db8fad3a-e131-47a1-8782-c2ee93708cdd",
+    "name": "Bebe Rexha"
+  },
+  {
+    "mbid": "0b0c25f4-f31c-46a5-a4fb-ccbf53d663bd",
+    "name": "Jon Hopkins"
+  },
+  {
+    "mbid": "4d5447d7-c61c-4120-ba1b-d7f471d385b9",
+    "name": "John Lennon"
+  },
+  {
+    "mbid": "5b687684-ad34-4a9f-b425-0e7aa81fbd38",
+    "name": "Amon Amarth"
+  },
+  {
+    "mbid": "355cc194-b8db-4af2-8678-c7ad54213f4b",
+    "name": "Latto"
+  },
+  {
+    "mbid": "b202beb7-99bd-47e7-8b72-195c8d72ebdd",
+    "name": "Christina Aguilera"
+  },
+  {
+    "mbid": "9f81247f-7f57-42f3-a8ba-75bef554e591",
+    "name": "Big Thief"
+  },
+  {
+    "mbid": "3f542031-b054-454d-b57b-812fa2a81b11",
+    "name": "Yo La Tengo"
+  },
+  {
+    "mbid": "cbcbb22c-3a8d-46af-b4ba-09c98f0d7931",
+    "name": "J Dilla"
+  },
+  {
+    "mbid": "f089f636-6b85-4e0e-a192-0d30ed2b44d1",
+    "name": "Ramin Djawadi"
+  },
+  {
+    "mbid": "05517043-ff78-4988-9c22-88c68588ebb9",
+    "name": "Paul Simon"
+  },
+  {
+    "mbid": "9757ae7d-44b1-4d63-81ce-b463fe27b9ae",
+    "name": "Joey Bada$$"
+  },
+  {
+    "mbid": "debabff3-2559-46e5-862d-ef2a906d7010",
+    "name": "Daryl Hall & John Oates"
+  },
+  {
+    "mbid": "add5f522-25df-41c4-815e-0ca9f60b83e4",
+    "name": "Ava Max"
+  },
+  {
+    "mbid": "f82f3a3e-29c2-42ca-b589-bc5dc210fa9e",
+    "name": "The Kooks"
+  },
+  {
+    "mbid": "97b1142f-c71e-4971-8736-4a8ceaf6b4c3",
+    "name": "The Decemberists"
+  },
+  {
+    "mbid": "88d17133-abbc-42db-9526-4e2c1db60336",
+    "name": "beabadoobee"
+  },
+  {
+    "mbid": "100b8734-f4f0-4536-9960-47f7c59d1b4c",
+    "name": "Gunna"
+  },
+  {
+    "mbid": "2a7ef045-ca10-4cb5-8fe9-1f5d38e84bc2",
+    "name": "GloRilla"
+  },
+  {
+    "mbid": "d1353a0c-26fb-4318-a116-defde9c7c9ad",
+    "name": "Dido"
+  },
+  {
+    "mbid": "38f0c7ac-46eb-49ca-b3ab-c785ccd05a60",
+    "name": "TV Girl"
+  },
+  {
+    "mbid": "2386cd66-e923-4e8e-bf14-2eebe2e9b973",
+    "name": "3 Doors Down"
+  },
+  {
+    "mbid": "fbd2a255-1d57-4d31-ac11-65b671c19958",
+    "name": "No Doubt"
+  },
+  {
+    "mbid": "233fc3f3-6de2-465c-985e-e721dbabbace",
+    "name": "Fugazi"
+  },
+  {
+    "mbid": "7fa7fc04-1011-4876-8095-ecd232edea87",
+    "name": "Blind Guardian"
+  },
+  {
+    "mbid": "f5c4c27e-5902-4fc0-adfb-7775da3d5363",
+    "name": "Yasiin Bey"
+  },
+  {
+    "mbid": "a81259a0-a2f5-464b-866e-71220f2739f1",
+    "name": "ZZ Top"
+  },
+  {
+    "mbid": "ad279295-653f-42e1-9aaa-b731df2e78ba",
+    "name": "Owl City"
+  },
+  {
+    "mbid": "b625448e-bf4a-41c3-a421-72ad46cdb831",
+    "name": "John Coltrane"
+  },
+  {
+    "mbid": "aef06569-098f-4218-a577-b413944d9493",
+    "name": "HAIM"
+  },
+  {
+    "mbid": "df6c619f-4334-43e2-8b6a-4a32af1e4f85",
+    "name": "YOASOBI"
+  },
+  {
+    "mbid": "9d1ebcfe-4c15-4d18-95d3-d919898638a1",
+    "name": "Lou Reed"
+  },
+  {
+    "mbid": "9b58672a-e68e-4972-956e-a8985a165a1f",
+    "name": "Howard Shore"
+  },
+  {
+    "mbid": "735e3514-a8ae-401f-af3b-6300df1b8d2c",
+    "name": "Caribou"
+  },
+  {
+    "mbid": "4593d49a-7f67-46ba-9ec0-126bd676286f",
+    "name": "Flo Rida"
+  },
+  {
+    "mbid": "9a3bf45c-347d-4630-894d-7cf3e8e0b632",
+    "name": "Santana"
+  },
+  {
+    "mbid": "303abdee-ffca-4685-a582-6aaaefd81b01",
+    "name": "Carpenter Brut"
+  },
+  {
+    "mbid": "525f1f1c-03f0-4bc8-8dfd-e7521f87631b",
+    "name": "Charlie Puth"
+  },
+  {
+    "mbid": "a670e05a-cea8-4b37-bce9-d82daf1a0fa4",
+    "name": "Feist"
+  },
+  {
+    "mbid": "4f0cb3b7-6c06-4317-ae35-ddf3106a17ee",
+    "name": "Red Velvet"
+  },
+  {
+    "mbid": "775ad383-ac2d-479a-af9d-b561442cb749",
+    "name": "Sleep Token"
+  },
+  {
+    "mbid": "ece57992-dc2e-4f67-a269-fa43626c1a3d",
+    "name": "Jethro Tull"
+  },
+  {
+    "mbid": "c995a379-60b9-404b-bd97-a7e2de0751d3",
+    "name": "Rob Zombie"
+  },
+  {
+    "mbid": "13655113-cd16-4b43-9dca-cadbbf26ee05",
+    "name": "Nelly Furtado"
+  },
+  {
+    "mbid": "7364dea6-ca9a-48e3-be01-b44ad0d19897",
+    "name": "a‐ha"
+  },
+  {
+    "mbid": "5e284bdc-3774-41dc-b5e2-b125d0349acf",
+    "name": "Kero Kero Bonito"
+  },
+  {
+    "mbid": "8ed2e0b3-aa4c-4e13-bec3-dc7393ed4d6b",
+    "name": "Thom Yorke"
+  },
+  {
+    "mbid": "f37b3f31-b1f8-4b88-8cb5-b34f709b17d7",
+    "name": "Iggy Pop"
+  },
+  {
+    "mbid": "c7020c6d-cae9-4db3-92a7-e5c561cbad50",
+    "name": "Keane"
+  },
+  {
+    "mbid": "e6e879c0-3d56-4f12-b3c5-3ce459661a8e",
+    "name": "Jeff Buckley"
+  },
+  {
+    "mbid": "05dffdbe-dc6e-4c8d-a075-50a09c4cb45c",
+    "name": "Architects"
+  },
+  {
+    "mbid": "321531fc-db73-4ffa-a959-61a61a2908c1",
+    "name": "Erykah Badu"
+  },
+  {
+    "mbid": "fa34b363-79df-434f-a5b8-be4e6898543f",
+    "name": "Ludovico Einaudi"
   }
 ]

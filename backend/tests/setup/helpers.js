@@ -81,13 +81,14 @@ async function createAlbum(artistId, fields = {}) {
 
 async function createTrack(albumId, fields = {}) {
   const { rows } = await query(
-    `INSERT INTO tracks (mbid, album_id, title, disc_number, track_number, duration_ms, rating_count, rating_sum)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    `INSERT INTO tracks (mbid, album_id, title, credit, disc_number, track_number, duration_ms, rating_count, rating_sum)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
      RETURNING *`,
     [
       randomUUID(),
       albumId,
       fields.title ?? 'Test Track',
+      fields.credit ?? null,
       fields.discNumber ?? 1,
       fields.trackNumber ?? 1,
       fields.durationMs ?? null,

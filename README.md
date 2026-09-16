@@ -28,14 +28,17 @@ npm run dev
 - API: http://localhost:3000/api/health
 - Postgres: localhost:5433 (5433 so it doesn't collide with a Postgres already on 5432)
 
-The catalog starts empty. To fill it:
+The catalog starts empty. Two seed lists fill it:
 
 ```sh
-npm run seed:catalog -- --artists 10    # a quick subset, a few minutes
-npm run seed:catalog                    # all 200 artists, roughly an hour
+npm run seed:catalog -- --artists 10        # a quick subset of the English list, a few minutes
+npm run seed:catalog                        # the English list: 500 most-listened artists, a few hours
+npm run seed:catalog -- --list malayalam    # Malayalam film composers and bands, about an hour
 ```
 
 The seed respects MusicBrainz's one-request-per-second limit and retries when the service is busy, so it's slow by design. It's safe to stop with Ctrl+C and re-run: finished artists are skipped, and nothing is ever deleted.
+
+Malayalam film music is catalogued on MusicBrainz under the film's composer, so that list seeds composers (and bands) and their soundtracks. Each song keeps its performer credit, so searching for a singer such as "Yesudas" finds their songs even though the singer has no artist page.
 
 To make yourself an admin (for the Featured picks), sign up in the app, then:
 
@@ -54,8 +57,8 @@ All run from the repo root.
 | `npm run dev` | Start Postgres, migrate, and run the API and web app with reload |
 | `npm test` | Start Postgres and run the backend tests against the `songboard_test` database |
 | `npm run migrate` | Apply pending SQL migrations from `backend/migrations` |
-| `npm run seed:catalog` | Import artists, albums, and tracks from MusicBrainz (`-- --artists N` for a subset, `-- --refresh` to re-fetch) |
-| `npm run seed:artist-list` | Regenerate `backend/seed/artists.json` from ListenBrainz (the committed list is normally all you need) |
+| `npm run seed:catalog` | Import artists, albums, and tracks from MusicBrainz (`-- --list malayalam` for the Malayalam list, `-- --artists N` for the first N, `-- --only "Name,Name"` for particular artists, `-- --refresh` to re-fetch) |
+| `npm run seed:artist-list` | Regenerate the seed lists: `-- --count 500` for the English list from ListenBrainz, `-- --list malayalam` for the Malayalam list (the committed lists are normally all you need) |
 | `npm run make-admin -- <username>` | Grant admin rights (`--revoke` removes them) |
 | `npm run build` | Production build of the web app into `frontend/dist` |
 | `npm run db:down` | Stop Postgres (data stays in the `pgdata` Docker volume) |
@@ -112,7 +115,7 @@ Migrations are plain SQL in [backend/migrations](backend/migrations), applied in
 | `artists` | MusicBrainz artists with bio, Wikipedia link, image, and rating counters |
 | `genres`, `artist_genres` | Genre names and each artist's genres with MusicBrainz vote counts |
 | `albums` | Release groups with year, cover URL, rating counters; `artist_id` |
-| `tracks` | Recordings with disc and track number, duration, rating counters; `album_id` (an album's artist is the track's artist) |
+| `tracks` | Recordings with disc and track number, duration, rating counters, `album_id` (an album's artist is the track's artist), and `credit`: the performers when they differ from the album artist, as on film soundtracks |
 | `reviews` | One row per rating: `user_id`, exactly one of `artist_id` / `album_id` / `track_id`, `rating` 1–10, optional `body` |
 | `featured_items` | Admin picks: exactly one of the three target ids, each featurable once |
 

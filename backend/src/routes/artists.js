@@ -34,7 +34,7 @@ const ALBUMS_SQL = `
 // The artist's rated tracks, ordered by the same weighted score as the Top Songs chart.
 const TOP_TRACKS_SQL = `
   WITH ${ranking.globalMeanCte('tracks')}
-  SELECT t.id, t.title, t.duration_ms AS "durationMs",
+  SELECT t.id, t.title, t.credit, t.duration_ms AS "durationMs",
          t.rating_count AS "ratingCount", ${ratingAverage('t')} AS "ratingAverage",
          json_build_object('id', al.id, 'title', al.title) AS album
   FROM tracks t

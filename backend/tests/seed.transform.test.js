@@ -1,8 +1,11 @@
+const { PROFILES } = require('../seed/profiles');
 const {
   releaseYear,
   rankAlbumCandidates,
   addDistinctAlbum,
   pickCanonicalRelease,
+  albumAllowed,
+  trackCredit,
   tracksFromRelease,
   coverUrl,
   wikidataId,
@@ -10,19 +13,20 @@ const {
 } = require('../seed/transform');
 
 // Fixtures are trimmed-down versions of real MusicBrainz responses for Radiohead and OK Computer.
-const group = (title, votes, date, secondaryTypes = []) => ({
+const group = (title, votes, date, secondaryTypes = [], primaryType = 'Album') => ({
   id: `rg-${title}`,
   title,
-  'primary-type': 'Album',
+  'primary-type': primaryType,
   'secondary-types': secondaryTypes,
   'first-release-date': date,
   rating: { 'votes-count': votes },
 });
 
-const track = (position, title, length) => ({
+const track = (position, title, length, credit) => ({
   position,
   title,
   length,
+  ...(credit && { 'artist-credit': credit }),
   recording: { id: `rec-${title}`, title, length },
 });
 
@@ -36,6 +40,9 @@ const release = (id, date, { front = false, media } = {}) => ({
   media: media ?? [medium(1, 'CD', [track(1, 'Airbag', 284400)])],
 });
 
+const RADIOHEAD = 'a74b1b7f-71a5-4011-9441-d0b5e4122711';
+const credit = (...parts) => parts.map(([name, id, joinphrase = '']) => ({ name, joinphrase, artist: { id, name } }));
+
 describe('rankAlbumCandidates', () => {
   const groups = [
     group('Radiotick Tracks 2', 0, '1997'),
@@ -45,10 +52,11 @@ describe('rankAlbumCandidates', () => {
     group('Pablo Honey', 58, '1993-02-22'),
     group('OK Computer', 88, '1997-05-21'),
     group('So Far Gone', 30, '2009-02-13', ['Mixtape/Street']),
+    group('Kumbalangi Nights', 2, '2019-02-01', ['Soundtrack'], 'EP'),
   ];
 
-  it('keeps albums, soundtracks, and mixtapes, best-known first', () => {
-    expect(rankAlbumCandidates(groups).map((g) => g.title)).toEqual([
+  it('English profile keeps albums, soundtracks, and mixtapes, best-known first, oldest on ties', () => {
+    expect(rankAlbumCandidates(groups, PROFILES.english).map((g) => g.title)).toEqual([
       'OK Computer',
       'Help!',
       'Pablo Honey',
@@ -57,9 +65,15 @@ describe('rankAlbumCandidates', () => {
     ]);
   });
 
-  it('breaks vote ties by release date, with missing dates last', () => {
+  it('Malayalam profile also takes EPs and breaks ties newest first', () => {
+    const tied = [group('Older film', 0, '2015'), group('Newer film', 0, '2023-03-10', ['Soundtrack'], 'EP'), group('Undated', 0, '')];
+    expect(rankAlbumCandidates(tied, PROFILES.malayalam).map((g) => g.title)).toEqual(['Newer film', 'Older film', 'Undated']);
+    expect(rankAlbumCandidates(groups, PROFILES.malayalam).map((g) => g.title)).toContain('Kumbalangi Nights');
+  });
+
+  it('English profile breaks vote ties by release date, with missing dates last', () => {
     const tied = [group('Undated', 0, ''), group('Later', 0, '2005'), group('Earlier', 0, '1999-03-01')];
-    expect(rankAlbumCandidates(tied).map((g) => g.title)).toEqual(['Earlier', 'Later', 'Undated']);
+    expect(rankAlbumCandidates(tied, PROFILES.english).map((g) => g.title)).toEqual(['Earlier', 'Later', 'Undated']);
   });
 });
 
@@ -113,23 +127,58 @@ describe('pickCanonicalRelease', () => {
   });
 });
 
+describe('albumAllowed', () => {
+  const withLanguage = (language) => ({ ...release('r', '2024'), 'text-representation': { language } });
+
+  it('Malayalam profile skips score albums and releases marked as another language', () => {
+    const profile = PROFILES.malayalam;
+    expect(albumAllowed(group('Aavesham', 0, '2024'), withLanguage('mal'), profile)).toBe(true);
+    expect(albumAllowed(group('Aavesham (Original Score)', 0, '2024'), withLanguage('mal'), profile)).toBe(false);
+    expect(albumAllowed(group('Bougainvillea (Original Background Score)', 0, '2024'), withLanguage(undefined), profile)).toBe(false);
+    expect(albumAllowed(group('Majili', 0, '2019'), withLanguage('tel'), profile)).toBe(false);
+    expect(albumAllowed(group('Kumbalangi Nights', 0, '2019'), release('r', '2019'), profile)).toBe(true); // language unset
+  });
+
+  it('English profile has no such rules', () => {
+    expect(albumAllowed(group('Interstellar (Original Motion Picture Score)', 0, '2014'), withLanguage('eng'), PROFILES.english)).toBe(true);
+    expect(albumAllowed(group('Homogenic', 0, '1997'), withLanguage('isl'), PROFILES.english)).toBe(true);
+  });
+});
+
+describe('trackCredit', () => {
+  it('is null when the track is credited to the album artist alone, or uncredited', () => {
+    expect(trackCredit(track(1, 'Airbag', 1, credit(['Radiohead', RADIOHEAD])), RADIOHEAD)).toBeNull();
+    expect(trackCredit(track(1, 'Airbag', 1), RADIOHEAD)).toBeNull();
+  });
+
+  it('joins the performers as MusicBrainz credits them', () => {
+    const duet = credit(['K. J. Yesudas', 'kj', ' & '], ['K. S. Chithra', 'ks']);
+    expect(trackCredit(track(1, 'Song', 1, duet), 'composer-id')).toBe('K. J. Yesudas & K. S. Chithra');
+  });
+
+  it('falls back to the recording credit', () => {
+    const t = { position: 1, title: 'Song', recording: { id: 'r', title: 'Song', 'artist-credit': credit(['Sithara', 'si']) } };
+    expect(trackCredit(t, 'composer-id')).toBe('Sithara');
+  });
+});
+
 describe('tracksFromRelease', () => {
-  it('maps audio tracks to rows and skips video media', () => {
+  it('maps audio tracks to rows, with credits, and skips video media', () => {
     const deluxe = release('collectors-edition', '2009-03-24', {
       media: [
         medium(1, 'CD', [
-          track(1, 'Airbag', 284400),
-          { position: 2, title: 'Paranoid Android', length: null, recording: { id: 'rec-pa', title: 'Paranoid Android', length: 387000 } },
+          track(1, 'Airbag', 284400, credit(['Radiohead', RADIOHEAD])),
+          { position: 2, title: 'Paranoid Android', length: null, 'artist-credit': credit(['Radiohead', RADIOHEAD], ['Guest', 'g']), recording: { id: 'rec-pa', title: 'Paranoid Android', length: 387000 } },
         ]),
         medium(2, 'CD', [{ position: 1, title: 'Polyethylene', length: 0, recording: { id: 'rec-poly', title: 'Polyethylene (Parts 1 & 2)' } }]),
         medium(3, 'DVD-Video', [track(1, 'Karma Police (video)', 264000)]),
       ],
     });
 
-    expect(tracksFromRelease(deluxe)).toEqual([
-      { mbid: 'rec-Airbag', title: 'Airbag', discNumber: 1, trackNumber: 1, durationMs: 284400 },
-      { mbid: 'rec-pa', title: 'Paranoid Android', discNumber: 1, trackNumber: 2, durationMs: 387000 },
-      { mbid: 'rec-poly', title: 'Polyethylene (Parts 1 & 2)', discNumber: 2, trackNumber: 1, durationMs: null },
+    expect(tracksFromRelease(deluxe, RADIOHEAD)).toEqual([
+      { mbid: 'rec-Airbag', title: 'Airbag', credit: null, discNumber: 1, trackNumber: 1, durationMs: 284400 },
+      { mbid: 'rec-pa', title: 'Paranoid Android', credit: 'RadioheadGuest', discNumber: 1, trackNumber: 2, durationMs: 387000 },
+      { mbid: 'rec-poly', title: 'Polyethylene (Parts 1 & 2)', credit: null, discNumber: 2, trackNumber: 1, durationMs: null },
     ]);
   });
 });

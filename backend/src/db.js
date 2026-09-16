@@ -9,6 +9,11 @@ types.setTypeParser(types.builtins.NUMERIC, (value) => Number.parseFloat(value))
 const pool = new Pool({
   connectionString: config.databaseUrl,
   connectionTimeoutMillis: 5000,
+  // Session settings sent at connection start-up. pg_trgm's word-similarity operator (<%), which
+  // search uses on performer credits, defaults to a 0.6 cut-off: too strict for a one-letter
+  // slip in a short name ("sitara" scores 0.5 against "Sithara"). 0.45 keeps such typos
+  // matching while the trigram index stays usable.
+  options: '-c pg_trgm.word_similarity_threshold=0.45',
 });
 
 function query(text, params) {

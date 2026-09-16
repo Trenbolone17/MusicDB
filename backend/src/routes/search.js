@@ -22,12 +22,19 @@ function toPrefixTsquery(text) {
     .join(' & ');
 }
 
-// Two ways to match, both accent-insensitive: full-text prefix search on words, or trigram
-// similarity (the % operator) for typos like "radiohed". Exact name matches come first, then
-// whichever of the two scores is higher, then popularity.
+// Two ways to match, both accent-insensitive: full-text prefix search on words (the search
+// vector covers the title and, for tracks, the performer credit), or trigram similarity (the
+// % operator) for typos like "radiohed". Exact name matches come first, then whichever of the
+// two scores is higher, then popularity.
 //   $1 = the raw query, $2 = the tsquery text, $3 = limit, $4 = offset
-function searchSql({ table, alias, nameColumn, select, joins }) {
+function searchSql({ table, alias, nameColumn, creditColumn, select, joins }) {
   const name = `f_unaccent(${alias}.${nameColumn})`;
+  // A credit lists several performers ("Sithara Krishnakumar & Vijay Yesudas"), so it's matched
+  // by word similarity (<%), which compares the query to the closest word or two, rather than
+  // whole-string similarity, which a long credit would drag under the threshold.
+  const credit = creditColumn ? `f_unaccent(${alias}.${creditColumn})` : null;
+  const similarities = [`similarity(${name}, f_unaccent($1))`];
+  if (credit) similarities.push(`coalesce(word_similarity(f_unaccent($1), ${credit}), 0)`);
   return `
     SELECT ${select},
            ${alias}.rating_count AS "ratingCount", ${ratingAverage(alias)} AS "ratingAverage",
@@ -36,10 +43,11 @@ function searchSql({ table, alias, nameColumn, select, joins }) {
     ${joins}
     WHERE ($2 <> '' AND ${alias}.search_vector @@ to_tsquery('simple', f_unaccent($2)))
        OR ${name} % f_unaccent($1)
+       ${credit ? `OR f_unaccent($1) <% ${credit}` : ''}
     ORDER BY (lower(${name}) = lower(f_unaccent($1))) DESC,
              greatest(
                CASE WHEN $2 <> '' THEN ts_rank(${alias}.search_vector, to_tsquery('simple', f_unaccent($2))) ELSE 0 END,
-               similarity(${name}, f_unaccent($1))
+               ${similarities.join(', ')}
              ) DESC,
              ${alias}.rating_count DESC, ${alias}.id
     LIMIT $3 OFFSET $4`;

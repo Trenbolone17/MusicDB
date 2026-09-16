@@ -77,9 +77,12 @@ function Tracklist({ tracks }) {
         {discTracks.map((track) => (
           <li key={track.id} className="flex items-center gap-3 py-2 text-sm">
             <span className="w-6 shrink-0 text-right tabular-nums text-muted">{track.trackNumber}</span>
-            <Link to={`/tracks/${track.id}`} className="min-w-0 flex-1 truncate hover:text-accent" title={track.title}>
-              {track.title}
-            </Link>
+            <div className="min-w-0 flex-1">
+              <Link to={`/tracks/${track.id}`} className="block truncate hover:text-accent" title={track.title}>
+                {track.title}
+              </Link>
+              {track.credit && <p className="truncate text-xs text-muted">{track.credit}</p>}
+            </div>
             <span className="w-12 shrink-0 text-right">
               <InlineRating average={track.ratingAverage} count={track.ratingCount} />
             </span>

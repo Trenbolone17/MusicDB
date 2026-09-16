@@ -75,6 +75,18 @@ describe('GET /api/search', () => {
     expect(second.body.items).toHaveLength(2);
   });
 
+  it('finds songs by their performers, so film songs turn up under the singer', async () => {
+    const composer = await createArtist({ name: 'Sushin Shyam' });
+    const soundtrack = await createAlbum(composer.id, { title: 'Kumbalangi Nights' });
+    await createTrack(soundtrack.id, { title: 'Cherathukal', trackNumber: 1, credit: 'Sithara Krishnakumar' });
+    await createTrack(soundtrack.id, { title: 'Uyiril Thodum', trackNumber: 2, credit: 'Sooraj Santhosh & Anne Amie' });
+
+    expect((await search({ q: 'sithara' })).body.tracks.items.map((track) => track.title)).toEqual(['Cherathukal']);
+    expect((await search({ q: 'anne amie' })).body.tracks.items.map((track) => track.title)).toEqual(['Uyiril Thodum']);
+    expect((await search({ q: 'sitara' })).body.tracks.items.map((track) => track.title)).toEqual(['Cherathukal']);
+    expect((await search({ q: 'cherathukal' })).body.tracks.items[0]).toMatchObject({ credit: 'Sithara Krishnakumar', artist: { name: 'Sushin Shyam' } });
+  });
+
   it('returns nothing for a query that matches nothing', async () => {
     const res = await search({ q: 'xyzzy plugh' });
 

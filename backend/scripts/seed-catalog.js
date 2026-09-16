@@ -1,21 +1,24 @@
-// Imports artists, their studio albums, and tracks from MusicBrainz, plus bios and images
-// from Wikipedia, for the artists in seed/artists.json.
+// Imports artists, their albums, and tracks from MusicBrainz, plus bios and images from
+// Wikipedia, for the artists in a seed list.
 //
-//   npm run seed:catalog                  every artist not seeded yet
-//   npm run seed:catalog -- --artists 10  only the first 10 in the list
-//   npm run seed:catalog -- --refresh     re-fetch artists that were already seeded
+//   npm run seed:catalog                          the English list, every artist not seeded yet
+//   npm run seed:catalog -- --list malayalam      the Malayalam list (composers, bands; EPs too)
+//   npm run seed:catalog -- --artists 10          only the first 10 in the list
+//   npm run seed:catalog -- --only "Sushin Shyam,Gopi Sundar"   only these names from the list
+//   npm run seed:catalog -- --refresh             re-fetch artists that were already seeded
 //
 // Each artist is written in one transaction, so stopping with Ctrl+C never leaves a
 // half-imported artist, and re-running picks up where it stopped.
+const path = require('node:path');
 const { parseArgs } = require('node:util');
 const config = require('../src/config');
 const { pool, query, withTransaction } = require('../src/db');
 const { createClient, requireUserAgent } = require('../seed/http');
 const { createMusicBrainz } = require('../seed/musicbrainz');
 const { createWikipedia } = require('../seed/wikipedia');
+const { PROFILES } = require('../seed/profiles');
 const transform = require('../seed/transform');
 const { saveArtistCatalog } = require('../seed/catalogStore');
-const artistList = require('../seed/artists.json');
 
 // MusicBrainz allows about one request per second; leave a little headroom.
 const MUSICBRAINZ_INTERVAL_MS = 1100;
@@ -23,6 +26,9 @@ const MUSICBRAINZ_INTERVAL_MS = 1100;
 // everything already fetched for that artist, so be more patient than the default.
 const MUSICBRAINZ_MAX_ATTEMPTS = 10;
 const WIKIMEDIA_INTERVAL_MS = 250;
+// Candidates to look at beyond the cap, to make up for regional editions that turn out to
+// be copies of albums already kept.
+const EXTRA_ALBUM_CANDIDATES = 6;
 
 function formatDuration(ms) {
   const minutes = Math.round(ms / 60_000);
@@ -38,15 +44,11 @@ async function seededMbids(mbids) {
   return new Set(rows.map((row) => row.mbid));
 }
 
-// Candidates to look at beyond the cap, to make up for regional editions that turn out to
-// be copies of albums already kept.
-const EXTRA_ALBUM_CANDIDATES = 6;
-
 // Walks the ranked candidates, fetching each one's releases, until `maxAlbums` distinct
 // albums are kept. Bootlegs (no official release) and duplicate editions are skipped.
-async function fetchAlbums(artistMbid, { musicBrainz, maxAlbums }) {
+async function fetchAlbums(artistMbid, { musicBrainz, profile, maxAlbums }) {
   const candidates = transform
-    .rankAlbumCandidates(await musicBrainz.browseAlbumGroups(artistMbid))
+    .rankAlbumCandidates(await musicBrainz.browseAlbumGroups(artistMbid, profile.browseTypes), profile)
     .slice(0, maxAlbums + EXTRA_ALBUM_CANDIDATES);
 
   let kept = [];
@@ -54,7 +56,7 @@ async function fetchAlbums(artistMbid, { musicBrainz, maxAlbums }) {
     if (kept.length === maxAlbums) break;
     const releases = await musicBrainz.browseOfficialReleases(group.id);
     const release = transform.pickCanonicalRelease(releases);
-    if (!release) continue;
+    if (!release || !transform.albumAllowed(group, release, profile)) continue;
 
     kept = transform.addDistinctAlbum(kept, {
       mbid: group.id,
@@ -63,7 +65,7 @@ async function fetchAlbums(artistMbid, { musicBrainz, maxAlbums }) {
       firstReleaseDate: group['first-release-date'],
       releaseYear: transform.releaseYear(group['first-release-date']),
       coverUrl: transform.coverUrl(group.id, releases),
-      tracks: transform.tracksFromRelease(release),
+      tracks: transform.tracksFromRelease(release, artistMbid),
     });
   }
   return kept;
@@ -109,10 +111,24 @@ async function fetchArtistCatalog(listed, sources, refresh) {
 async function main() {
   const { values } = parseArgs({
     options: {
+      list: { type: 'string', default: 'english' },
       artists: { type: 'string' },
+      only: { type: 'string' },
       refresh: { type: 'boolean', default: false },
     },
   });
+  const profile = PROFILES[values.list];
+  if (!profile) throw new Error(`--list must be one of: ${Object.keys(PROFILES).join(', ')}`);
+  let artistList = require(path.join('../seed', profile.list));
+
+  if (values.only) {
+    const wanted = new Set(values.only.split(',').map((name) => name.trim().toLowerCase()).filter(Boolean));
+    artistList = artistList.filter((artist) => wanted.has(artist.name.toLowerCase()));
+    const found = new Set(artistList.map((artist) => artist.name.toLowerCase()));
+    const missing = [...wanted].filter((name) => !found.has(name));
+    if (missing.length > 0) throw new Error(`Not in the ${values.list} list: ${missing.join(', ')}`);
+  }
+
   const limit = values.artists === undefined ? artistList.length : Number(values.artists);
   if (!Number.isInteger(limit) || limit < 1) throw new Error('--artists must be a positive whole number');
 
@@ -128,15 +144,16 @@ async function main() {
       }),
     ),
     wikipedia: createWikipedia(createClient({ userAgent, minIntervalMs: WIKIMEDIA_INTERVAL_MS, log: logRetry })),
-    maxAlbums: config.seed.maxAlbumsPerArtist,
+    profile,
+    maxAlbums: profile.maxAlbums ?? config.seed.maxAlbumsPerArtist,
   };
 
   const selected = artistList.slice(0, limit);
   const alreadySeeded = values.refresh ? new Set() : await seededMbids(selected.map((artist) => artist.mbid));
   const todo = selected.filter((artist) => !alreadySeeded.has(artist.mbid));
   console.log(
-    `${todo.length} to seed, ${selected.length - todo.length} already seeded${values.refresh ? ' (refresh)' : ''}.` +
-      ' Safe to stop with Ctrl+C; re-run to resume.',
+    `${values.list} list: ${todo.length} to seed, ${selected.length - todo.length} already seeded` +
+      `${values.refresh ? ' (refresh)' : ''}. Safe to stop with Ctrl+C; re-run to resume.`,
   );
 
   const started = Date.now();

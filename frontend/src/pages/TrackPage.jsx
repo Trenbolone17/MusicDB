@@ -34,8 +34,9 @@ function TrackDetails({ track }) {
         </Link>
         <div className="min-w-0">
           <h1 className="text-3xl font-semibold break-words">{track.title}</h1>
+          {track.credit && <p className="mt-1">{track.credit}</p>}
           <p className="mt-1">
-            by{' '}
+            {track.credit ? 'music by' : 'by'}{' '}
             <Link to={`/artists/${track.artist.id}`} className="text-accent hover:underline">
               {track.artist.name}
             </Link>

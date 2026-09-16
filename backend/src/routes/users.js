@@ -36,7 +36,7 @@ router.get('/users/:username', async (req, res) => {
 // The songs this person rated highest, with the song's overall rating alongside theirs.
 router.get('/users/:username/top-tracks', async (req, res) => {
   const { rows } = await query(
-    `SELECT t.id, t.title, r.rating AS "givenRating",
+    `SELECT t.id, t.title, t.credit, r.rating AS "givenRating",
             t.rating_count AS "ratingCount", ${ratingAverage('t')} AS "ratingAverage",
             json_build_object('id', al.id, 'title', al.title, 'coverUrl', al.cover_url) AS album,
             json_build_object('id', ar.id, 'name', ar.name) AS artist
