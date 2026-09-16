@@ -1,4 +1,5 @@
 const express = require('express');
+const { CATALOG_TYPES } = require('../catalogTypes');
 const { query } = require('../db');
 const { notFound, validationError } = require('../errors');
 const { parsePage } = require('../pagination');
@@ -7,37 +8,6 @@ const { ratingAverage } = require('../sql');
 
 const PAGE_SIZE = 25;
 const SORTS = ['top', 'trending'];
-
-// What each chart lists and how its rows are shaped. The alias is used by the ranking SQL.
-const CHART_TYPES = {
-  tracks: {
-    table: 'tracks',
-    alias: 't',
-    reviewColumn: 'track_id',
-    targetType: 'track',
-    select: `t.id, t.title,
-             json_build_object('id', al.id, 'title', al.title, 'coverUrl', al.cover_url) AS album,
-             json_build_object('id', ar.id, 'name', ar.name) AS artist`,
-    joins: 'JOIN albums al ON al.id = t.album_id JOIN artists ar ON ar.id = al.artist_id',
-  },
-  albums: {
-    table: 'albums',
-    alias: 'al',
-    reviewColumn: 'album_id',
-    targetType: 'album',
-    select: `al.id, al.title, al.release_year AS "releaseYear", al.cover_url AS "coverUrl",
-             json_build_object('id', ar.id, 'name', ar.name) AS artist`,
-    joins: 'JOIN artists ar ON ar.id = al.artist_id',
-  },
-  artists: {
-    table: 'artists',
-    alias: 'ar',
-    reviewColumn: 'artist_id',
-    targetType: 'artist',
-    select: 'ar.id, ar.name, ar.image_url AS "imageUrl"',
-    joins: '',
-  },
-};
 
 // Only items with at least one rating are listed; the rest would all tie at the global mean.
 function topChartSql({ table, alias, select, joins }) {
@@ -76,7 +46,7 @@ const router = express.Router();
 
 // GET /api/charts/tracks?sort=top|trending&page=N (also albums, artists)
 router.get('/charts/:type', async (req, res) => {
-  const chart = CHART_TYPES[req.params.type];
+  const chart = CATALOG_TYPES[req.params.type];
   if (!chart) throw notFound('Chart not found');
 
   const sort = req.query.sort ?? 'top';

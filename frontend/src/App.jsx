@@ -7,13 +7,13 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import PlaceholderPage from './pages/PlaceholderPage.jsx';
+import SearchPage from './pages/SearchPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import TrackPage from './pages/TrackPage.jsx';
 
 // Pages that aren't built yet. Each later feature swaps in the real page.
 const placeholders = [
   ['featured', 'Featured'],
-  ['search', 'Search'],
   ['u/:username', 'Profile'],
 ];
 
@@ -28,6 +28,7 @@ export default function App() {
         <Route path="artists/:id" element={<ArtistPage />} />
         <Route path="albums/:id" element={<AlbumPage />} />
         <Route path="tracks/:id" element={<TrackPage />} />
+        <Route path="search" element={<SearchPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         {placeholders.map(([path, title]) => (

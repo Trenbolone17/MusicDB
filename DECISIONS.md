@@ -71,6 +71,13 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - Review lists are 10 per page, newest first, with the total from a window function rather than a second count query.
 - Review writes are limited per signed-in account (30 per 10 minutes by default) rather than per IP address.
 
+## Search
+- Search matches two ways at once: word-prefix full-text search (so "para" finds "Paranoid Android" while typing) or trigram similarity at Postgres's default 0.3 threshold (so "radiohed" finds "Radiohead"); both go through `f_unaccent`.
+- Results order: exact name match first, then the higher of the full-text rank and the trigram similarity, then rating count.
+- Query punctuation is stripped before building the tsquery, since it has meaning in tsquery syntax; a punctuation-only query falls back to trigram matching alone.
+- The grouped view returns 5 per type with each type's total; choosing a type gives a 25-per-page list. Queries are capped at 100 characters.
+- The search box updates the URL (`?q=`) after a 300 ms typing pause, so results can be shared and the back button works; the row shapes are shared with the charts through `catalogTypes.js`.
+
 ## Catalog API and pages
 - Each detail endpoint returns everything its page needs in one response (artist with top genres, albums, and top tracks; album with its tracklist); reviews will come from a separate, paginated endpoint.
 - A non-numeric, zero, or unknown id returns 404 `NOT_FOUND`, and the page shows a "not found" message instead of a retry button.

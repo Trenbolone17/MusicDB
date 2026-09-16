@@ -3,14 +3,14 @@ import { pluralize } from '../lib/format.js';
 import Cover from './Cover.jsx';
 import { InlineRating } from './Rating.jsx';
 
-// Numbered rows for a chart. Each row: { rank, href, image, imageAlt, title, subtitle,
-// ratingAverage, ratingCount }.
+// Rows for a chart or search result list. Each row: { rank?, href, image, imageAlt, title,
+// subtitle?, ratingAverage, ratingCount }. Rows without a rank (search results) get no number.
 export default function RankedList({ rows }) {
   return (
     <ol className="divide-y divide-line">
       {rows.map((row) => (
         <li key={row.href} className="flex items-center gap-3 py-2 text-sm">
-          <span className="w-7 shrink-0 text-right tabular-nums text-muted">{row.rank}</span>
+          {row.rank !== undefined && <span className="w-7 shrink-0 text-right tabular-nums text-muted">{row.rank}</span>}
           <Cover src={row.image} alt={row.imageAlt ?? ''} placeholder="" className="w-12 shrink-0" />
           <div className="min-w-0 flex-1">
             <Link to={row.href} className="block truncate font-medium hover:text-accent" title={row.title}>

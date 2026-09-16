@@ -9,6 +9,7 @@ const { createAuthRouter } = require('./routes/auth');
 const chartRoutes = require('./routes/charts');
 const healthRoutes = require('./routes/health');
 const { createReviewsRouter } = require('./routes/reviews');
+const searchRoutes = require('./routes/search');
 const trackRoutes = require('./routes/tracks');
 
 // Refresh runs on every page load and logging out is harmless, so both get a much looser
@@ -39,6 +40,7 @@ function createApp({ authRateLimit = config.rateLimits.auth, reviewRateLimit = c
   app.use('/api', albumRoutes);
   app.use('/api', trackRoutes);
   app.use('/api', chartRoutes);
+  app.use('/api', searchRoutes);
   app.use(
     '/api',
     createReviewsRouter({
