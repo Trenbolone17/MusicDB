@@ -3,8 +3,10 @@ import Layout from './components/Layout.jsx';
 import AlbumPage from './pages/AlbumPage.jsx';
 import ArtistPage from './pages/ArtistPage.jsx';
 import HomePage from './pages/HomePage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import PlaceholderPage from './pages/PlaceholderPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
 import TrackPage from './pages/TrackPage.jsx';
 
 // Pages that aren't built yet. Each later feature swaps in the real page.
@@ -14,8 +16,7 @@ const placeholders = [
   ['top/artists', 'Top Artists'],
   ['featured', 'Featured'],
   ['search', 'Search'],
-  ['login', 'Log in'],
-  ['signup', 'Sign up'],
+  ['u/:username', 'Profile'],
 ];
 
 export default function App() {
@@ -26,6 +27,8 @@ export default function App() {
         <Route path="artists/:id" element={<ArtistPage />} />
         <Route path="albums/:id" element={<AlbumPage />} />
         <Route path="tracks/:id" element={<TrackPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignupPage />} />
         {placeholders.map(([path, title]) => (
           <Route key={path} path={path} element={<PlaceholderPage title={title} />} />
         ))}

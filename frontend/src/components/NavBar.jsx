@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router';
+import { useAuth } from '../auth/AuthProvider.jsx';
 import SearchIcon from './SearchIcon.jsx';
 
 const links = [
@@ -10,6 +11,37 @@ const links = [
 ];
 
 const linkClass = ({ isActive }) => (isActive ? 'text-accent' : 'text-muted hover:text-fg');
+
+function AccountLinks() {
+  const { status, user, logout } = useAuth();
+
+  // Show nothing until the session check answers, so signed-in users don't see "Log in" flash.
+  if (status === 'loading') return null;
+
+  if (status === 'authenticated') {
+    return (
+      <>
+        <NavLink to={`/u/${user.username}`} className={linkClass}>
+          {user.username}
+        </NavLink>
+        <button type="button" onClick={logout} className="cursor-pointer text-muted hover:text-fg">
+          Log out
+        </button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <NavLink to="/login" className={linkClass}>
+        Log in
+      </NavLink>
+      <NavLink to="/signup" className={linkClass}>
+        Sign up
+      </NavLink>
+    </>
+  );
+}
 
 export default function NavBar() {
   return (
@@ -34,12 +66,7 @@ export default function NavBar() {
         </ul>
 
         <div className="ml-auto flex gap-4 text-sm">
-          <NavLink to="/login" className={linkClass}>
-            Log in
-          </NavLink>
-          <NavLink to="/signup" className={linkClass}>
-            Sign up
-          </NavLink>
+          <AccountLinks />
         </div>
       </nav>
     </header>

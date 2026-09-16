@@ -13,6 +13,6 @@ const validationError = (message, details) => new AppError(400, 'VALIDATION_ERRO
 const unauthorized = (message = 'Authentication required') => new AppError(401, 'UNAUTHORIZED', message);
 const forbidden = (message = 'You are not allowed to do that') => new AppError(403, 'FORBIDDEN', message);
 const notFound = (message = 'Not found') => new AppError(404, 'NOT_FOUND', message);
-const conflict = (message) => new AppError(409, 'CONFLICT', message);
+const conflict = (message, details) => new AppError(409, 'CONFLICT', message, details);
 
 module.exports = { AppError, validationError, unauthorized, forbidden, notFound, conflict };

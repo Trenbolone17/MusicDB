@@ -44,9 +44,18 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 ## Auth, API, and uploads
 - Email is required at signup; login accepts username or email.
 - Passwords are hashed with argon2.
-- Refresh tokens are stored as SHA-256 hashes, rotated on every refresh, and revoked on logout or password change.
-- The API error shape adds an optional `details` field, used only for validation errors.
+- Access tokens are HS256 JWTs lasting 15 minutes that carry only the user id; every authenticated request still confirms the user exists.
+- Refresh tokens are stored as SHA-256 hashes and rotated on every refresh. A rotated token presented again within 30 seconds is treated as two tabs refreshing at once and gets a new token; later reuse deletes all of the user's refresh tokens, since it suggests theft.
+- Logging out deletes the refresh token row instead of marking it revoked, so the rotation grace window can't revive it.
+- Refreshing with no cookie returns 200 with `user: null`, because being logged out is a normal state, not an error.
+- A failed log-in still verifies against a dummy hash when the account doesn't exist, so response times don't reveal which accounts exist.
+- Duplicate usernames and emails are caught by the unique indexes rather than a pre-check, so two simultaneous sign-ups can't both succeed.
+- The API error shape adds an optional `details` field; `details.fields` ties validation errors and duplicate usernames or emails to the form field they belong to.
 - Rate limits use express-rate-limit's in-memory store, which is fine for a single process.
+- Sign-up requests and failed log-ins each have a per-IP limit (10 per 15 minutes by default). Successful log-ins don't count, so typing the right password never locks anyone out. Refresh and log-out allow 100 per window, since refresh runs on every page load.
+- Express trusts X-Forwarded-For only from loopback proxies, and the Vite proxy sets it, so dev rate limits apply per browser instead of to the proxy.
+- `.env.example` ships a placeholder JWT secret so local setup works; the API refuses to start in production while the secret contains "change-me".
+- Form errors use the muted red, the palette's only warning colour.
 - Avatars are re-encoded to 256px WebP with sharp.
 
 ## Catalog API and pages

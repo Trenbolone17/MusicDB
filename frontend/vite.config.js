@@ -19,7 +19,8 @@ export default defineConfig(({ mode }) => {
       // The browser only talks to Vite, which forwards API and upload requests to Express.
       // Same origin means no CORS, and the refresh cookie can be SameSite=Strict.
       proxy: {
-        '/api': apiTarget,
+        // xfwd adds X-Forwarded-For, so the API rate-limits each browser rather than the proxy.
+        '/api': { target: apiTarget, xfwd: true },
         '/uploads': apiTarget,
       },
     },
