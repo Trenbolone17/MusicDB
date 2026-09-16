@@ -78,6 +78,14 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - The grouped view returns 5 per type with each type's total; choosing a type gives a 25-per-page list. Queries are capped at 100 characters.
 - The search box updates the URL (`?q=`) after a 300 ms typing pause, so results can be shared and the back button works; the row shapes are shared with the charts through `catalogTypes.js`.
 
+## Featured, admin, and home
+- Admins are made from the server with `npm run make-admin -- <username>` (`--revoke` to remove); there is deliberately no UI for granting admin.
+- `requireAdmin` reads `is_admin` from the users row on every request, so revoking it applies immediately rather than when the access token expires.
+- Featuring an already-featured item answers 409; the unique constraints on `featured_items` are what actually prevent duplicates.
+- The home page loads from one endpoint (`GET /api/home`): 6 featured songs and artists plus the top 5 of each chart, reusing the chart SQL.
+- Admins see an extra "Admin" link beside their username in the nav; nobody else sees it, and the page itself refuses non-admins.
+- Every list of catalog items (charts, search, featured, home) is built from one row-shape module (`frontend/src/lib/rows.js`), so an item looks the same everywhere.
+
 ## Catalog API and pages
 - Each detail endpoint returns everything its page needs in one response (artist with top genres, albums, and top tracks; album with its tracklist); reviews will come from a separate, paginated endpoint.
 - A non-numeric, zero, or unknown id returns 404 `NOT_FOUND`, and the page shows a "not found" message instead of a retry button.

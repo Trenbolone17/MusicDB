@@ -1,5 +1,5 @@
 const { query } = require('../db');
-const { AppError, unauthorized } = require('../errors');
+const { AppError, forbidden, unauthorized } = require('../errors');
 const { verifyAccessToken } = require('../services/auth');
 
 const sessionExpired = () => new AppError(401, 'INVALID_TOKEN', 'Your session has expired. Please log in again.');
@@ -22,4 +22,14 @@ async function requireAuth(req, res, next) {
   next();
 }
 
-module.exports = { requireAuth };
+// requireAuth first, then the admin flag. The flag comes from the users row on every request,
+// so revoking admin takes effect immediately rather than when the token expires.
+const requireAdmin = [
+  requireAuth,
+  (req, res, next) => {
+    if (!req.user.isAdmin) throw forbidden('Admins only');
+    next();
+  },
+];
+
+module.exports = { requireAuth, requireAdmin };

@@ -3,35 +3,10 @@ import { useChart } from '../api/charts.js';
 import Pagination from '../components/Pagination.jsx';
 import QueryState from '../components/QueryState.jsx';
 import RankedList from '../components/RankedList.jsx';
+import { toRows } from '../lib/rows.js';
 import useDocumentTitle from '../lib/useDocumentTitle.js';
 
-// How each chart turns an API item into a list row.
-const CHARTS = {
-  tracks: {
-    title: 'Top Songs',
-    row: (item) => ({
-      href: `/tracks/${item.id}`,
-      image: item.album.coverUrl,
-      imageAlt: `${item.album.title} cover`,
-      title: item.title,
-      subtitle: `${item.artist.name} · ${item.album.title}`,
-    }),
-  },
-  albums: {
-    title: 'Top Albums',
-    row: (item) => ({
-      href: `/albums/${item.id}`,
-      image: item.coverUrl,
-      imageAlt: `${item.title} cover`,
-      title: item.title,
-      subtitle: [item.artist.name, item.releaseYear].filter(Boolean).join(' · '),
-    }),
-  },
-  artists: {
-    title: 'Top Artists',
-    row: (item) => ({ href: `/artists/${item.id}`, image: item.imageUrl, imageAlt: item.name, title: item.name }),
-  },
-};
+const TITLES = { tracks: 'Top Songs', albums: 'Top Albums', artists: 'Top Artists' };
 
 const SORTS = [
   {
@@ -49,8 +24,8 @@ const SORTS = [
 ];
 
 export default function ChartPage({ type }) {
-  const chart = CHARTS[type];
-  useDocumentTitle(chart.title);
+  const title = TITLES[type];
+  useDocumentTitle(title);
 
   // Sort and page live in the URL, so a chart position can be shared or bookmarked.
   const [params, setParams] = useSearchParams();
@@ -66,7 +41,7 @@ export default function ChartPage({ type }) {
   return (
     <section>
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <h1 className="text-2xl font-semibold">{chart.title}</h1>
+        <h1 className="text-2xl font-semibold">{title}</h1>
         <div role="group" aria-label="Sort" className="flex gap-4 text-sm">
           {SORTS.map((option) => (
             <button
@@ -87,14 +62,7 @@ export default function ChartPage({ type }) {
         <QueryState query={result} loadingMessage="Loading chart…" emptyMessage={current.empty}>
           {(data) => (
             <>
-              <RankedList
-                rows={data.items.map((item) => ({
-                  rank: item.rank,
-                  ratingAverage: item.ratingAverage,
-                  ratingCount: item.ratingCount,
-                  ...chart.row(item),
-                }))}
-              />
+              <RankedList rows={toRows(type, data.items)} />
               <Pagination
                 page={data.page}
                 pageSize={data.pageSize}

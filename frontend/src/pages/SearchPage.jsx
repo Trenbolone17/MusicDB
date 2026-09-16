@@ -7,46 +7,16 @@ import RankedList from '../components/RankedList.jsx';
 import SearchIcon from '../components/SearchIcon.jsx';
 import Section from '../components/Section.jsx';
 import { pluralize } from '../lib/format.js';
+import { toRows } from '../lib/rows.js';
 import useDocumentTitle from '../lib/useDocumentTitle.js';
 
 const TYPING_PAUSE_MS = 300;
 
-// How each result type becomes a list row.
 const GROUPS = [
-  {
-    type: 'artists',
-    title: 'Artists',
-    noun: 'artist',
-    row: (item) => ({ href: `/artists/${item.id}`, image: item.imageUrl, imageAlt: item.name, title: item.name }),
-  },
-  {
-    type: 'albums',
-    title: 'Albums',
-    noun: 'album',
-    row: (item) => ({
-      href: `/albums/${item.id}`,
-      image: item.coverUrl,
-      imageAlt: `${item.title} cover`,
-      title: item.title,
-      subtitle: [item.artist.name, item.releaseYear].filter(Boolean).join(' · '),
-    }),
-  },
-  {
-    type: 'tracks',
-    title: 'Songs',
-    noun: 'song',
-    row: (item) => ({
-      href: `/tracks/${item.id}`,
-      image: item.album.coverUrl,
-      imageAlt: `${item.album.title} cover`,
-      title: item.title,
-      subtitle: `${item.artist.name} · ${item.album.title}`,
-    }),
-  },
+  { type: 'artists', title: 'Artists', noun: 'artist' },
+  { type: 'albums', title: 'Albums', noun: 'album' },
+  { type: 'tracks', title: 'Songs', noun: 'song' },
 ];
-
-const toRows = (group, items) =>
-  items.map((item) => ({ ratingAverage: item.ratingAverage, ratingCount: item.ratingCount, ...group.row(item) }));
 
 export default function SearchPage() {
   useDocumentTitle('Search');
@@ -117,7 +87,7 @@ function GroupedResults({ q, results }) {
           const { items, total } = data[group.type];
           return (
             <Section key={group.type} title={group.title}>
-              <RankedList rows={toRows(group, items)} />
+              <RankedList rows={toRows(group.type, items)} />
               {total > items.length && (
                 <Link to={`/search?q=${encodeURIComponent(q)}&type=${group.type}`} className="mt-3 inline-block text-sm text-accent hover:underline">
                   See all {pluralize(total, group.noun)}
@@ -144,7 +114,7 @@ function TypeResults({ q, group, results, onPageChange }) {
         <QueryState query={results} loadingMessage="Searching…" emptyMessage={`No ${group.title.toLowerCase()} match “${q}”.`}>
           {(data) => (
             <>
-              <RankedList rows={toRows(group, data.items)} />
+              <RankedList rows={toRows(group.type, data.items)} />
               <Pagination page={data.page} pageSize={data.pageSize} total={data.total} onPageChange={onPageChange} />
             </>
           )}

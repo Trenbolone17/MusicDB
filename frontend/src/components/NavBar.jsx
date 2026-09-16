@@ -24,6 +24,11 @@ function AccountLinks() {
         <NavLink to={`/u/${user.username}`} className={linkClass}>
           {user.username}
         </NavLink>
+        {user.isAdmin && (
+          <NavLink to="/admin" className={linkClass}>
+            Admin
+          </NavLink>
+        )}
         <button type="button" onClick={logout} className="cursor-pointer text-muted hover:text-fg">
           Log out
         </button>

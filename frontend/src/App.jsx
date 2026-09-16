@@ -1,8 +1,10 @@
 import { Route, Routes } from 'react-router';
 import Layout from './components/Layout.jsx';
+import AdminPage from './pages/AdminPage.jsx';
 import AlbumPage from './pages/AlbumPage.jsx';
 import ArtistPage from './pages/ArtistPage.jsx';
 import ChartPage from './pages/ChartPage.jsx';
+import FeaturedPage from './pages/FeaturedPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
@@ -12,10 +14,7 @@ import SignupPage from './pages/SignupPage.jsx';
 import TrackPage from './pages/TrackPage.jsx';
 
 // Pages that aren't built yet. Each later feature swaps in the real page.
-const placeholders = [
-  ['featured', 'Featured'],
-  ['u/:username', 'Profile'],
-];
+const placeholders = [['u/:username', 'Profile']];
 
 export default function App() {
   return (
@@ -29,6 +28,8 @@ export default function App() {
         <Route path="albums/:id" element={<AlbumPage />} />
         <Route path="tracks/:id" element={<TrackPage />} />
         <Route path="search" element={<SearchPage />} />
+        <Route path="featured" element={<FeaturedPage />} />
+        <Route path="admin" element={<AdminPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         {placeholders.map(([path, title]) => (
