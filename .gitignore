@@ -27,3 +27,7 @@ coverage/
 
 # Docker volumes if you mount Postgres data locally
 pgdata/
+
+# Uploaded profile pictures (keep the folder, not its contents)
+backend/uploads/*
+!backend/uploads/.gitkeep

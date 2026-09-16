@@ -25,7 +25,8 @@ export function onSessionEnded(listener) {
   return () => sessionEndedListeners.delete(listener);
 }
 
-async function send(path, { method = 'GET', body, headers, signal } = {}) {
+// `body` is sent as JSON; `formData` (a FormData) is sent as-is, for file uploads.
+async function send(path, { method = 'GET', body, formData, headers, signal } = {}) {
   try {
     return await fetch(`/api${path}`, {
       method,
@@ -36,7 +37,7 @@ async function send(path, { method = 'GET', body, headers, signal } = {}) {
         ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
         ...headers,
       },
-      body: body !== undefined ? JSON.stringify(body) : undefined,
+      body: formData ?? (body !== undefined ? JSON.stringify(body) : undefined),
     });
   } catch (err) {
     if (err.name === 'AbortError') throw err;

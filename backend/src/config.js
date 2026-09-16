@@ -20,6 +20,11 @@ const EnvSchema = z.object({
   RATE_LIMIT_AUTH_WINDOW_MINUTES: z.coerce.number().int().positive().default(15),
   RATE_LIMIT_REVIEW_MAX: z.coerce.number().int().positive().default(30),
   RATE_LIMIT_REVIEW_WINDOW_MINUTES: z.coerce.number().int().positive().default(10),
+  // Where uploaded profile pictures go. 'disk' writes under UPLOADS_DIR (relative to backend/)
+  // and serves them at PUBLIC_UPLOADS_URL; an S3 driver would slot in here later.
+  STORAGE_DRIVER: z.enum(['disk']).default('disk'),
+  UPLOADS_DIR: z.string().min(1).default('uploads'),
+  PUBLIC_UPLOADS_URL: z.string().min(1).default('/uploads'),
   // Only the seed scripts use these, so the API starts without them.
   SEED_USER_AGENT: z.string().min(1).optional(),
   SEED_MAX_ALBUMS_PER_ARTIST: z.coerce.number().int().positive().default(15),
@@ -62,6 +67,11 @@ module.exports = {
   rateLimits: {
     auth: { max: env.RATE_LIMIT_AUTH_MAX, windowMs: env.RATE_LIMIT_AUTH_WINDOW_MINUTES * 60_000 },
     review: { max: env.RATE_LIMIT_REVIEW_MAX, windowMs: env.RATE_LIMIT_REVIEW_WINDOW_MINUTES * 60_000 },
+  },
+  storage: {
+    driver: env.STORAGE_DRIVER,
+    uploadsDir: path.resolve(__dirname, '..', env.UPLOADS_DIR),
+    publicUrl: env.PUBLIC_UPLOADS_URL.replace(/\/$/, ''),
   },
   seed: {
     userAgent: env.SEED_USER_AGENT,

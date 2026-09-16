@@ -8,13 +8,12 @@ import FeaturedPage from './pages/FeaturedPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import PlaceholderPage from './pages/PlaceholderPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 import SearchPage from './pages/SearchPage.jsx';
+import SettingsPage from './pages/SettingsPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import TrackPage from './pages/TrackPage.jsx';
-
-// Pages that aren't built yet. Each later feature swaps in the real page.
-const placeholders = [['u/:username', 'Profile']];
+import RequireAuth from './auth/RequireAuth.jsx';
 
 export default function App() {
   return (
@@ -32,9 +31,15 @@ export default function App() {
         <Route path="admin" element={<AdminPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
-        {placeholders.map(([path, title]) => (
-          <Route key={path} path={path} element={<PlaceholderPage title={title} />} />
-        ))}
+        <Route path="u/:username" element={<ProfilePage />} />
+        <Route
+          path="settings"
+          element={
+            <RequireAuth>
+              <SettingsPage />
+            </RequireAuth>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

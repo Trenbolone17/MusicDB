@@ -86,6 +86,16 @@ Design decisions not covered by CLAUDE.md or SPEC.md. One line each.
 - Admins see an extra "Admin" link beside their username in the nav; nobody else sees it, and the page itself refuses non-admins.
 - Every list of catalog items (charts, search, featured, home) is built from one row-shape module (`frontend/src/lib/rows.js`), so an item looks the same everywhere.
 
+## Profiles and settings
+- File storage sits behind `storage.put/remove/urlFor` with one disk driver; the driver is chosen by `STORAGE_DRIVER`, so S3 later means one new driver file.
+- Profile pictures are decoded and re-encoded by sharp to a 256px square WebP, which also strips metadata and rejects anything that isn't a readable image; uploads are capped at 2 MB. A replaced picture's old file is deleted after the database swap.
+- Public profiles never include the email address or the user's numeric id.
+- A profile's "top rated songs" are ordered by the rating that person gave, newest first among equals, and show the song's overall rating alongside.
+- Changing the password deletes every refresh token for the account and issues a fresh one to the current session, so other devices are signed out but this one stays in.
+- Deleting an account subtracts the person's ratings from each item's counters in the same transaction that deletes the row; the avatar file is removed after the commit.
+- Password-checking endpoints (change password, delete account) share the auth rate limit, keyed by account.
+- Tests upload into a temp directory, set before the config loads, so they never touch `backend/uploads`.
+
 ## Catalog API and pages
 - Each detail endpoint returns everything its page needs in one response (artist with top genres, albums, and top tracks; album with its tracklist); reviews will come from a separate, paginated endpoint.
 - A non-numeric, zero, or unknown id returns 404 `NOT_FOUND`, and the page shows a "not found" message instead of a retry button.

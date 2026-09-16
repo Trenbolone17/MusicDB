@@ -10,9 +10,11 @@ const { router: chartRoutes } = require('./routes/charts');
 const { router: featuredRoutes } = require('./routes/featured');
 const healthRoutes = require('./routes/health');
 const homeRoutes = require('./routes/home');
+const { createMeRouter } = require('./routes/me');
 const { createReviewsRouter } = require('./routes/reviews');
 const searchRoutes = require('./routes/search');
 const trackRoutes = require('./routes/tracks');
+const userRoutes = require('./routes/users');
 
 // Refresh runs on every page load and logging out is harmless, so both get a much looser
 // limit than log-in and sign-up attempts.
@@ -28,6 +30,8 @@ function createApp({ authRateLimit = config.rateLimits.auth, reviewRateLimit = c
   app.set('trust proxy', 'loopback');
   app.use(express.json({ limit: '100kb' }));
   app.use(cookieParser());
+  // Uploaded profile pictures, when the disk storage driver is in use.
+  app.use(config.storage.publicUrl, express.static(config.storage.uploadsDir, { maxAge: '7d', index: false }));
 
   app.use('/api', healthRoutes);
   app.use(
@@ -45,6 +49,15 @@ function createApp({ authRateLimit = config.rateLimits.auth, reviewRateLimit = c
   app.use('/api', searchRoutes);
   app.use('/api', featuredRoutes);
   app.use('/api', homeRoutes);
+  app.use('/api', userRoutes);
+  app.use(
+    '/api/me',
+    createMeRouter({
+      // Password changes and account deletion take the current password, so guessing gets
+      // the same per-account limit as reviews.
+      sensitiveLimiter: createRateLimiter({ ...authRateLimit, keyGenerator: (req) => String(req.user.id) }),
+    }),
+  );
   app.use(
     '/api',
     createReviewsRouter({

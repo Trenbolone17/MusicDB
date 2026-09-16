@@ -14,6 +14,10 @@ function toAppError(err) {
   if (err.type === 'entity.too.large') {
     return new AppError(413, 'PAYLOAD_TOO_LARGE', 'Request body is too large');
   }
+  // multer's size limit on uploads.
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    return new AppError(413, 'PAYLOAD_TOO_LARGE', 'Images must be 2 MB or smaller', { fields: { avatar: 'Choose an image under 2 MB' } });
+  }
   return new AppError(500, 'INTERNAL', 'Something went wrong');
 }
 

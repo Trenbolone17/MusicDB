@@ -38,6 +38,12 @@ export function AuthProvider({ children }) {
       async signup(fields) {
         applySession(await api('/auth/signup', { method: 'POST', body: fields }));
       },
+      // After the profile changes (name, picture), keep the nav and pages in step.
+      setUser(user) {
+        setSession({ status: 'authenticated', user });
+      },
+      // After the password changes, the server issues new tokens; keep using them.
+      setAccessToken,
       async logout() {
         // Even if the request fails, forget the session locally.
         await api('/auth/logout', { method: 'POST' }).catch(() => {});

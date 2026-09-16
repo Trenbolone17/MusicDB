@@ -5,7 +5,7 @@ const { AppError, conflict, unauthorized } = require('../errors');
 const { requireAuth } = require('../middleware/auth');
 const { validateBody } = require('../middleware/validate');
 const auth = require('../services/auth');
-const { SELF_COLUMNS, findSelfById } = require('../services/users');
+const { SELF_COLUMNS, toSelf, findSelfById } = require('../services/users');
 
 const SignupSchema = z.object({
   username: z
@@ -58,7 +58,7 @@ function createAuthRouter({ signupLimiter, loginLimiter, sessionLimiter }) {
          RETURNING ${SELF_COLUMNS}`,
         [username, email, passwordHash, displayName || username],
       );
-      user = rows[0];
+      user = toSelf(rows[0]);
     } catch (err) {
       const duplicate = err.code === '23505' && DUPLICATE_FIELDS[err.constraint];
       if (!duplicate) throw err;
@@ -79,10 +79,11 @@ function createAuthRouter({ signupLimiter, loginLimiter, sessionLimiter }) {
       [login],
     );
 
-    const { passwordHash, ...user } = rows[0] ?? {};
-    if (!(await auth.verifyPassword(passwordHash, password))) throw invalidCredentials();
+    const row = rows[0];
+    if (!(await auth.verifyPassword(row?.passwordHash, password))) throw invalidCredentials();
 
-    await startSession(res, 200, user);
+    const { passwordHash, ...user } = row;
+    await startSession(res, 200, toSelf(user));
   });
 
   // Restores a session from the refresh cookie, rotating it. No cookie at all just means
